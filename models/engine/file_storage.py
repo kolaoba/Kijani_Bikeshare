@@ -4,6 +4,12 @@ The module containing the FS engine
 """
 import json
 from models.base_model import BaseModel
+from models.user import User
+from models.city import City
+
+
+classes = {'BaseModel':BaseModel, 'User':User, 'City':City}
+
 
 class FileStorage():
     """
