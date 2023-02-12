@@ -2,6 +2,13 @@
 import cmd
 import shlex
 from models.base_model import BaseModel
+from models.user import User
+from models.city import City
+from models.area import Area
+from models.bike import Bike
+from moels.station import Station
+from models.trip import Trip
+from models.payment import Payment
 from models.engine.file_storage import classes
 import models
 from models import storage

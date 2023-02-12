@@ -6,9 +6,14 @@ import json
 from models.base_model import BaseModel
 from models.user import User
 from models.city import City
+from models.area import Area
+from models.bike import Bike
+from moels.station import Station
+from models.trip import Trip
+from models.payment import Payment
 
 
-classes = {'BaseModel':BaseModel, 'User':User, 'City':City}
+classes = {'BaseModel':BaseModel, 'User':User, 'City':City, 'Area':Area, 'Bike':Bike, 'Station':Station, 'Trip':Trip, 'Payment':Payment}
 
 
 class FileStorage():
