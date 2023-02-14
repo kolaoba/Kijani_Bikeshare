@@ -9,6 +9,6 @@ class User(BaseModel):
     password = ''
     first_name = ''
     last_name = ''
-    city_id
+    city_id = ""
 
 

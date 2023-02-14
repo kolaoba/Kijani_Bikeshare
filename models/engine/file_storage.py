@@ -8,7 +8,7 @@ from models.user import User
 from models.city import City
 from models.area import Area
 from models.bike import Bike
-from moels.station import Station
+from models.station import Station
 from models.trip import Trip
 from models.payment import Payment
 
