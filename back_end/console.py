@@ -6,7 +6,7 @@ from models.user import User
 from models.city import City
 from models.area import Area
 from models.bike import Bike
-from moels.station import Station
+from models.station import Station
 from models.trip import Trip
 from models.payment import Payment
 from models.engine.file_storage import classes
@@ -69,6 +69,7 @@ class KijaniCommand(cmd.Cmd):
             print("** no instance found **")
             return False
         print(models.storage.all()[model])
+        models.storage.all()[model].save()
 
     def do_destroy(self, line):
         """Deletes an instance based on the class name and id"""
