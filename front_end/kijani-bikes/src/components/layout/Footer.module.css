@@ -1,0 +1,39 @@
+/* CSS styling for a 2 column footer */
+
+footer {
+  background-color: #050c1a;
+  color: #fff;
+  padding: 20px;
+}
+
+.footerContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+/* .leftCol,
+.rightCol {
+  width: 50%;
+} */
+
+.left-col {
+  padding-right: 20px;
+}
+
+.right-col {
+  padding-left: 20px;
+}
+
+/* Style the links */
+a {
+  color: white;
+  display: block;
+  margin: 7px;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
