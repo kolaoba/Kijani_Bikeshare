@@ -1,0 +1,12 @@
+.section {
+  /* background-color: blanchedalmond; */
+}
+
+.header {
+  /* position: relative; */
+  text-align: center;
+  color: white;
+}
+.header h1 {
+  font-size: 2.5rem;
+}

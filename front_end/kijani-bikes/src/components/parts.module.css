@@ -1,0 +1,17 @@
+.parts {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  color: white;
+
+  height: 250px;
+}
+
+.parts h2 {
+  font-size: 28px;
+}
+
+.parts div {
+  width: 25%;
+  text-align: center;
+}
