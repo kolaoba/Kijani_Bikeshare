@@ -12,6 +12,11 @@
   text-align: center;
 }
 
+.link {
+  text-align: center;
+  color: #3e8e41;
+}
+
 label {
   display: block;
   font-weight: bold;
@@ -31,16 +36,22 @@ input[type="password"] {
   margin-left: 15%;
 }
 
+input[type="checkbox"] {
+  position: relative;
+  left: 50%;
+}
+
 button {
-  background-color: rgb(177, 147, 147);
+  background-color: rgb(102, 228, 44);
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   color: black;
   cursor: pointer;
   font-size: 16px;
   margin-top: 10px;
   padding: 10px;
-  width: 180px;
+  width: 60%;
+  margin-left: 20%;
 }
 
 button:hover {

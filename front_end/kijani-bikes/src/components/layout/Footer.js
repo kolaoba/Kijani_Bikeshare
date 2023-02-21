@@ -1,80 +1,39 @@
-function Footer() {
+// Create a 2 column footer
+
+import classes from "./Footer.module.css";
+
+import React from "react";
+import { Link } from "react-router-dom";
+
+const Footer = () => {
   return (
-    <footer className="footer">
-      <div className="footer__logo-box"></div>
-      <div className="row">
-        <div className="col-1-of-2">
-          <div className="footer__navigation">
-            <ul className="footer__list">
-              <li className="footer__item">
-                <a href="#" className="footer__link">
-                  Company
-                </a>
-              </li>
-              <li className="footer__item">
-                <a href="#" className="footer__link">
-                  Contact us
-                </a>
-              </li>
-              <li className="footer__item">
-                <a href="#" className="footer__link">
-                  Carrers
-                </a>
-              </li>
-              <li className="footer__item">
-                <a href="#" className="footer__link">
-                  Privacy policy
-                </a>
-              </li>
-              <li className="footer__item">
-                <a href="#" className="footer__link">
-                  Terms
-                </a>
-              </li>
-            </ul>
-          </div>
+    <footer className={classes.footer}>
+      <div className={classes.footerContainer}>
+        <div className={classes.leftCol}>
+          <Link to="/" className={classes.footer_link}>
+            Home
+          </Link>
+          <Link to="/about" className={classes.footer_link}>
+            About
+          </Link>
+          <Link to="/contact" className={classes.footer_link}>
+            Contact
+          </Link>
         </div>
-        <div className="col-1-of-2">
-          <div className="footer__navigation">
-            <ul className="footer__list">
-              <li className="footer__item">
-                <a href="#" className="footer__link">
-                  Facebook
-                </a>
-              </li>
-              <li className="footer__item">
-                <a href="#" className="footer__link">
-                  Instagram
-                </a>
-              </li>
-              <li className="footer__item">
-                <a href="#" className="footer__link">
-                  Twitter
-                </a>
-              </li>
-              <li className="footer__item">
-                <a href="#" className="footer__link">
-                  Youtube
-                </a>
-              </li>
-            </ul>
-          </div>
+        <div className={classes.rightCol}>
+          <Link to="/privacy" className={classes.footer_link}>
+            Privacy
+          </Link>
+          <Link to="/privacy" className={classes.footer_link}>
+            Service And Updates
+          </Link>
+          <Link to="/privacy" className={classes.footer_link}>
+            FAQ
+          </Link>
         </div>
-      </div>
-      <div className="row">
-        <p className="footer__copywrite">
-          Built by{" "}
-          <a href="https://www.kjbwebdev.com" className="footer__link">
-            KJB Web Development
-          </a>{" "}
-          for{" "}
-          <a href="https://www.kjbwebdev.com" className="footer__link">
-            KJB Web Development
-          </a>
-        </p>
       </div>
     </footer>
   );
-}
+};
 
 export default Footer;

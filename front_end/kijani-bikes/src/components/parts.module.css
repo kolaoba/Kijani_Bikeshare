@@ -1,8 +1,10 @@
 .parts {
+  margin: 20px;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   color: white;
+  align-items: center;
 
   height: 250px;
 }
@@ -13,5 +15,14 @@
 
 .parts div {
   width: 25%;
+  text-align: center;
+}
+
+.parts img {
+  max-width: 100%;
+}
+
+.imgdiv {
+  padding: 50px 0;
   text-align: center;
 }

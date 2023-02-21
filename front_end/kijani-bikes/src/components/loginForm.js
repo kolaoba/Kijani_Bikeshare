@@ -1,82 +1,80 @@
 import { Link } from "react-router-dom";
 import classes from "./loginForm.module.css";
+import { useState, useRef, useEffect } from "react";
 
 function LoginForm() {
+  const emailRef = useRef();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [success, setSuccess] = useState(false);
+
+  useEffect(() => {
+    emailRef.current.focus();
+  }, []);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("email: ", email);
+    setEmail("");
+    setPassword("");
+    setSuccess(true);
+  };
+
   return (
-    <div className={classes.container}>
-      <h2>Login to get started</h2>
-      <form>
-        <label>
-          Email
-          <input type="email" name="email" placeholder="youremail@gmail.com" />
-        </label>{" "}
-        <br />
-        <label>
-          Password
-          <input type="password" name="password" />
-        </label>{" "}
-        <br />
-        <button type="sub">Login</button>
-        {/* dont have an account? <a href="#">Sign up</a> */}
-        {/* Don't have an account? sign up */}
-        <input type="checkbox" name="keepMeLoggedIn" />
-        <p>Keep me logged in</p>
-        <span>
-          Don't have an account?{" "}
-          <button>
-            <Link to="/signup">Sign Up</Link>
-          </button>
-        </span>
-      </form>
-    </div>
+    <>
+      {success ? (
+        <div className={classes.container}>
+          <h2>Success!</h2>
+          <p>
+            You have successfully logged in.{" "}
+            <Link className={classes.link} to="/">
+              Go To Dashboard
+            </Link>
+          </p>
+        </div>
+      ) : (
+        <div className={classes.container}>
+          <h2>Login to get started</h2>
+          <form>
+            <label htmlFor="email">
+              Email
+              <input
+                type="email"
+                id="email"
+                ref={emailRef}
+                autoComplete="off"
+                placeholder="youremail@gmail.com"
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
+                required
+              />
+            </label>{" "}
+            <br />
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <br />
+            <button onClick={handleSubmit}>Login</button>
+          </form>
+          <span>
+            Don't have an account?
+            <Link className={classes.link} to="/signup">
+              Sign Up
+            </Link>
+            {/* <button>
+          <Link to="/signup">Sign Up</Link>
+        </button> */}
+          </span>
+        </div>
+      )}
+    </>
   );
 }
-//   return (
-//     <section className={classes.container}>
-//       <div>
-//         <h1>Login</h1>
-//       </div>
-//       <div>
-//         <form>
-//           <div>
-//             <label htmlFor="email">Email</label>
-//             <input type="email" id="email" required />
-
-//             <label htmlFor="password">Password</label>
-//             <input type="password" id="password" required />
-
-//             <button>Login</button>
-
-//             <div>
-//               <p>
-//                 Don't have an account? <a href="/signup">Sign Up</a>
-//               </p>
-
-//               <p>
-//                 Forgot your password?{" "}
-//                 <a href="/reset-password">Reset Password</a>
-//               </p>
-
-//               <p>
-//                 Or <a href="/login">Login</a> with
-//               </p>
-
-//               <div>
-//                 <button>Google</button>
-//                 <button>Facebook</button>
-
-//                 <p>
-//                   By signing up, you agree to our{" "}
-//                   <a href="/terms">Terms of Service</a> and{" "}
-//                   <a href="/privacy">Privacy Policy</a>
-//                 </p>
-//               </div>
-//             </div>
-//           </div>
-//         </form>
-//       </div>
-//     </section>
-//   );
-// }
 
 export default LoginForm;

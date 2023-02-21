@@ -3,8 +3,9 @@
   /* background: #f8f8f8; */
   height: 190px;
   display: flex;
-  align-items: center;
+  flex-direction: row;
   justify-content: space-around;
+  align-items: center;
 }
 
 .write {
@@ -18,4 +19,13 @@
 }
 .write p {
   margin-top: 0px;
+}
+
+.imgdiv {
+  padding: 50px 0;
+  text-align: center;
+}
+
+.imgdiv img {
+  max-width: 60%;
 }
