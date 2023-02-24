@@ -10,15 +10,12 @@ from sqlalchemy.orm import relationship
 
 class City(BaseModel, Base):
     """Representation of city """
-    if models.storage_t == "db":
-        __tablename__ = 'cities'
-        name = Column(String(128), nullable=False)
+    __tablename__ = 'cities'
+    name = Column(String(128), nullable=False)
 
-        areas = relationship("Area", backref="city")
-        users = relationship("User", backref="city")
+    areas = relationship("Area", backref="city")
+    users = relationship("User", backref="city")
 
-    else:
-        name = ""
 
     def __init__(self, *args, **kwargs):
         """initializes city"""

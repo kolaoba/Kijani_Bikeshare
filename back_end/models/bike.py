@@ -4,7 +4,8 @@ import models
 from models.base_model import BaseModel, Base
 from os import getenv
 import sqlalchemy
-from sqlalchemy import Column, String, Geometry, ForeignKey, Integer
+from sqlalchemy import Column, String, ForeignKey, Integer
+from geoalchemy2 import Geometry
 from sqlalchemy.orm import relationship
 
 class Bike(BaseModel):
@@ -15,11 +16,10 @@ class Bike(BaseModel):
     size(str) : The size of the Bike
     status (str): The status of the bike
     """
-    if models.storage_t == "db":
-        __tablename__ = 'bikes'
-        type = Column(String(128), nullable=False)
-        status = Column(String(128), nullable=False)
-        location = Column(Geometry('POINT'), nullable=False)
+    __tablename__ = 'bikes'
+    type = Column(String(128), nullable=False)
+    status = Column(String(128), nullable=False)
+    location = Column(Geometry('POINT'), nullable=True)
 
     def __init__(self, *args, **kwargs):
         """initializes bike"""

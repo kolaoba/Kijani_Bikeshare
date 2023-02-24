@@ -17,9 +17,13 @@ from os import getenv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 
-classes = {"Area": Area, "City": City,
-           "Payment": Payment, "Bike": Bike,
-             "Trip": Trip, "User": User, "Station": Station}
+classes = {"Area": Area,
+           "Bike": Bike,
+           "City": City,
+           "Payment": Payment,
+           "Station": Station,
+           "Trip": Trip,
+           "User": User}
 
 
 class DBStorage:
