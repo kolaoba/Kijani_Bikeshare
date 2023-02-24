@@ -8,9 +8,9 @@ import sqlalchemy
 from sqlalchemy import Column, String, ForeignKey, BigInteger
 from sqlalchemy.orm import relationship
 from hashlib import md5
+from flask_login import UserMixin
 
-
-class User(BaseModel, Base):
+class User(BaseModel, Base, UserMixin):
     """Representation of a user """
     __tablename__ = 'users'
     email = Column(String(128), nullable=False)

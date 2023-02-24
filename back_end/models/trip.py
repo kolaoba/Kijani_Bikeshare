@@ -3,10 +3,10 @@
 import models
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, ForeignKey, DateTime
-from geoalchemy2 import Geometry
+from models.custom_datatype.geometry import Geometry
 from sqlalchemy.orm import relationship
 
-class Trip(BaseModel):
+class Trip(BaseModel, Base):
     """Represents Trip class"""
     __tablename__ = 'trips'
     duration = Column(String(128), nullable=False)
@@ -14,8 +14,8 @@ class Trip(BaseModel):
     bike_id = Column(String(128), ForeignKey('bikes.id'), nullable=False)
     start_time = Column(DateTime, nullable=False)
     end_time = Column(DateTime, nullable=False)
-    start_location = Column(Geometry('POINT'), nullable=False)
-    destination = Column(Geometry('POINT'), nullable=False)
+    start_location = Column(Geometry, nullable=False)
+    destination = Column(Geometry, nullable=False)
 
     bikes = relationship("Bike", backref="trip")
     users = relationship("User", backref="trip")

@@ -5,10 +5,10 @@ from models.base_model import BaseModel, Base
 from os import getenv
 import sqlalchemy
 from sqlalchemy import Column, String, ForeignKey, Integer
-from geoalchemy2 import Geometry
+from models.custom_datatype.geometry import Geometry
 from sqlalchemy.orm import relationship
 
-class Bike(BaseModel):
+class Bike(BaseModel, Base):
     """Represents a single bike
     Attributes:
     bike_id (str): The unique id of the bke
@@ -19,7 +19,7 @@ class Bike(BaseModel):
     __tablename__ = 'bikes'
     type = Column(String(128), nullable=False)
     status = Column(String(128), nullable=False)
-    location = Column(Geometry('POINT'), nullable=True)
+    location = Column(Geometry, nullable=True)
 
     def __init__(self, *args, **kwargs):
         """initializes bike"""

@@ -15,9 +15,9 @@ def get_cities():
     of a specific State, or a specific city
     """
     list_cities = []
-    all_cities = storage.all(City).values
+    all_cities = storage.all(City).values()
     print(all_cities)
-    # for city in all_cities:
-    #     list_cities.append(city.to_dict())
+    for city in all_cities:
+        list_cities.append(city.to_dict())
 
     return jsonify(list_cities)

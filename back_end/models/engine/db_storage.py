@@ -10,6 +10,7 @@ from models.city import City
 from models.bike import Bike
 from models.payment import Payment
 from models.trip import Trip
+from models.rack import Rack
 from models.user import User
 from models.station import Station
 from os import getenv
@@ -20,7 +21,8 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 classes = {"Area": Area,
            "Bike": Bike,
            "City": City,
-           "Payment": Payment,
+        #    "Payment": Payment,
+           "Rack": Rack,
            "Station": Station,
            "Trip": Trip,
            "User": User}
