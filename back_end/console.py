@@ -94,8 +94,11 @@ class KijaniCommand(cmd.Cmd):
         elif args[0] in classes:
             if len(args) > 1:
                 key = args[0] + "." + args[1]
-                if key in models.storage.all():
-                    models.storage.all().pop(key)
+                if key in models.storage.all(classes[args[0]]):
+                    popped =  models.storage.all(classes[args[0]]).pop(key)
+                    print(popped)
+                    print(type(models.storage.all(classes[args[0]])))
+                    print(models.storage.all(classes[args[0]]))
                     models.storage.save()
                 else:
                     print("** no instance found **")
@@ -133,7 +136,7 @@ class KijaniCommand(cmd.Cmd):
             print('** instance id missing **')
             return False
         key = args[0] + "." + args[1]
-        model = models.storage.all()
+        model = models.storage.all(classes[args[0]])
         if key not in model:
             print('** no instance found **')
             return False
@@ -147,10 +150,8 @@ class KijaniCommand(cmd.Cmd):
             attribute_key = args[2]
             attribute_value = args[3]
             new_attribute[attribute_key] = attribute_value
-            new_cls_obj = BaseModel(**new_attribute)
-            new_cls_obj.save()
-            storage.new(new_cls_obj)
-
+            setattr(model[key], args[2], args[3])
+            model[key].save()
 
 
 
