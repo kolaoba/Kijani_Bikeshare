@@ -76,9 +76,9 @@ class KijaniCommand(cmd.Cmd):
         if args[0] in classes:
             if len(args) > 1:
                 key = args[0] + "." + args[1]
-                print(models.storage.all())
-                if key in models.storage.all():
-                    print(models.storage.all()[key])
+                # print(models.storage.all())
+                if key in models.storage.all(classes[args[0]]):
+                    print(models.storage.all(classes[args[0]])[key])
                 else:
                     print("** no instance found **")
             else:
