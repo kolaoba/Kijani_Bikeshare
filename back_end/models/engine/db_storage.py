@@ -9,9 +9,9 @@ from models.base_model import BaseModel, Base
 from models.city import City
 from models.bike import Bike
 from models.payment import Payment
-from models.trip import Trip
 from models.rack import Rack
 from models.user import User
+from models.trip import Trip
 from models.station import Station
 from os import getenv
 # import sqlalchemy
@@ -24,8 +24,9 @@ classes = {"Area": Area,
         #    "Payment": Payment,
            "Rack": Rack,
            "Station": Station,
-           "Trip": Trip,
-           "User": User}
+           "User": User,
+           "Trip": Trip
+           }
 
 
 class DBStorage:

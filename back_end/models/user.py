@@ -20,6 +20,8 @@ class User(BaseModel, Base, UserMixin):
     phone_number = Column(BigInteger, nullable=True)
     city_id = Column(String(60), ForeignKey('cities.id'), nullable=False)
 
+    # trips = relationship("Trip", backref="user")
+
     def __init__(self, *args, **kwargs):
         """initializes user"""
         super().__init__(*args, **kwargs)

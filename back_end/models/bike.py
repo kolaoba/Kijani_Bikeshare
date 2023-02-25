@@ -21,6 +21,8 @@ class Bike(BaseModel, Base):
     status = Column(String(128), nullable=False)
     location = Column(Geometry, nullable=True)
 
+    # trips = relationship("Trip", backref="bike")
+
     def __init__(self, *args, **kwargs):
         """initializes bike"""
         super().__init__(*args, **kwargs)

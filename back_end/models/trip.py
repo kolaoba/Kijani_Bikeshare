@@ -21,6 +21,6 @@ class Trip(BaseModel, Base):
     users = relationship("User", backref="trip")
 
     def __init__(self, *args, **kwargs):
-        """initializes Amenity"""
+        """initializes Trip"""
         super().__init__(*args, **kwargs)
 
