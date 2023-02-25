@@ -9,6 +9,7 @@ from sqlalchemy import Column, String, ForeignKey, BigInteger, Index
 from sqlalchemy.orm import relationship
 from hashlib import md5
 from flask_login import UserMixin
+from werkzeug.security import generate_password_hash
 
 class User(BaseModel, Base, UserMixin):
     """Representation of a user """
@@ -18,7 +19,7 @@ class User(BaseModel, Base, UserMixin):
     first_name = Column(String(128), nullable=True)
     last_name = Column(String(128), nullable=True)
     phone_number = Column(BigInteger, nullable=True)
-    city_id = Column(String(60), ForeignKey('cities.id'), nullable=False)
+    city_id = Column(String(60), ForeignKey('cities.id'), nullable=True)
 
     trips = relationship("Trip", backref="user")
 
@@ -29,7 +30,5 @@ class User(BaseModel, Base, UserMixin):
     def __setattr__(self, name, value):
         """sets a password with md5 encryption"""
         if name == "password":
-            value = md5(value.encode()).hexdigest()
+            value = generate_password_hash(value, method='sha256')
         super().__setattr__(name, value)
-
-Index('user_id_index', User.id)

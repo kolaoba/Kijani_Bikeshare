@@ -12,6 +12,7 @@ from models.payment import Payment
 from models.rack import Rack
 from models.user import User
 from models.trip import Trip
+from models.user import User
 from models.station import Station
 from os import getenv
 # import sqlalchemy
@@ -97,6 +98,12 @@ class DBStorage:
             if (value.id == id):
                 return value
 
+        return None
+
+    def get_user_by_email(self, email):
+        user_obj = self.__session.query(User).filter_by(email=email).first()
+        if user_obj:
+            return user_obj
         return None
 
     def count(self, cls=None):

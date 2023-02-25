@@ -3,7 +3,7 @@
 from models import storage
 from api.v1.views import app_views
 from os import environ
-from flask import Flask, render_template, make_response, jsonify
+from flask import Flask, request, render_template, make_response, jsonify
 from flask_cors import CORS
 from flasgger import Swagger
 from flasgger.utils import swag_from
@@ -31,9 +31,7 @@ login_manager.login_message_category = "danger"
 
 from models.user import User
 
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.filter(User.id == user_id).first()
+
 
 @app.teardown_appcontext
 def close_db(error):

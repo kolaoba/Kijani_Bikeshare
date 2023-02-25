@@ -26,5 +26,3 @@ class Bike(BaseModel, Base):
     def __init__(self, *args, **kwargs):
         """initializes bike"""
         super().__init__(*args, **kwargs)
-
-Index('bike_id_index', Bike.id)

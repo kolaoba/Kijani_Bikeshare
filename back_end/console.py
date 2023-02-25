@@ -3,7 +3,6 @@ import shlex
 from models.base_model import BaseModel
 from models.engine.db_storage import classes
 import models
-from models import storage
 
 
 class KijaniCommand(cmd.Cmd):
