@@ -8,21 +8,17 @@ import sqlalchemy
 from sqlalchemy import Column, String, ForeignKey, BigInteger
 from sqlalchemy.orm import relationship
 from hashlib import md5
+from flask_login import UserMixin
 
-
-class User(BaseModel, Base):
+class User(BaseModel, Base, UserMixin):
     """Representation of a user """
-    if models.storage_t == 'db':
-        __tablename__ = 'users'
-        email = Column(String(128), nullable=False)
-        password = Column(String(128), nullable=False)
-        first_name = Column(String(128), nullable=True)
-        last_name = Column(String(128), nullable=True)
-        phone_number = Column(BigInteger, nullable=True)
-        city_id = Column(String(60), ForeignKey('cities.id'), nullable=False)
-
-        trips = relationship("Trip", backref="user")
-        bikes = relationship("Bike", backref="user")
+    __tablename__ = 'users'
+    email = Column(String(128), nullable=False)
+    password = Column(String(128), nullable=False)
+    first_name = Column(String(128), nullable=True)
+    last_name = Column(String(128), nullable=True)
+    phone_number = Column(BigInteger, nullable=True)
+    city_id = Column(String(60), ForeignKey('cities.id'), nullable=False)
 
     def __init__(self, *args, **kwargs):
         """initializes user"""

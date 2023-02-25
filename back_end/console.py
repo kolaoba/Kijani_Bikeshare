@@ -1,15 +1,7 @@
-#!/usr/bin/python3
 import cmd
 import shlex
 from models.base_model import BaseModel
-from models.user import User
-from models.city import City
-from models.area import Area
-from models.bike import Bike
-from models.station import Station
-from models.trip import Trip
-from models.payment import Payment
-from models.engine.file_storage import classes
+from models.engine.db_storage import classes
 import models
 from models import storage
 
@@ -38,70 +30,102 @@ class KijaniCommand(cmd.Cmd):
         """Does nothing"""
         # pass
 
-    def do_create(self, line):
+    def _key_value_parser(self, args):
+        """creates a dictionary from a list of strings"""
+        new_dict = {}
+        for arg in args:
+            if "=" in arg:
+                kvp = arg.split('=', 1)
+                key = kvp[0]
+                value = kvp[1]
+                if value[0] == value[-1] == '"':
+                    value = shlex.split(value)[0].replace('_', ' ')
+                else:
+                    try:
+                        value = int(value)
+                    except:
+                        try:
+                            value = float(value)
+                        except:
+                            continue
+                new_dict[key] = value
+        return new_dict
+
+    def do_create(self, arg):
         """Creates an instance"""
-        args = shlex.split(line)
+        args = arg.split()
         if len(args) == 0:
             print("Class name missing!")
             return False
-        if args[0] not in classes:
+        if args[0] in classes:
+            new_dict = self._key_value_parser(args[1:])
+            print(new_dict)
+            instance = classes[args[0]](**new_dict)
+        else:
             print("class does not exist!")
             return False
-        instance = classes[args[0]]()
-        print (instance.id)
+        print(instance.id)
         instance.save()
 
-    def do_show(self, line):
-        """show instance of class and uuid"""
-        args = shlex.split(line)
+    def do_show(self, arg):
+        """Prints an instance as a string based on the class and id"""
+        args = shlex.split(arg)
         if len(args) == 0:
-            print("Class name missing")
+            print("** class name missing **")
             return False
-        if args[0] not in classes:
-            print("class does not exist!")
-            return False
-        if len(args) == 1:
-            print("** instance id missing **")
-            return False
-        model = args[0] + "." + args[1]
-        models.storage.all()
-        if model not in models.storage.all():
-            print("** no instance found **")
-            return False
-        print(models.storage.all()[model])
-        models.storage.all()[model].save()
-
-    def do_destroy(self, line):
-        """Deletes an instance based on the class name and id"""
-        args = shlex.split(line)
-        if len(args) == 0:
-            print('** class name missing **')
-            return False
-        if args[0] not in classes:
-            print("** class doesn't exist  **")
-            return False
-        if len(args) == 1:
-            print('** instance id missing **')
-            return False
-        model = args[0] + "." + args[1]
-        models.storage.all()
-        if model not in models.storage.all():
-            print('** no instance found **')
-            return False
+        if args[0] in classes:
+            if len(args) > 1:
+                key = args[0] + "." + args[1]
+                # print(models.storage.all())
+                if key in models.storage.all(classes[args[0]]):
+                    print(models.storage.all(classes[args[0]])[key])
+                else:
+                    print("** no instance found **")
+            else:
+                print("** instance id missing **")
         else:
-            del models.storage.all()[model]
-
-    def do_all(self, line):
-        """Prints all string representation of all instances based or not on the class name"""
-        if line not in classes:
             print("** class doesn't exist **")
-        else:
-            cls = models.storage.all()
-            for value in cls.values():
-                print(value)
 
-    def do_update(self, line):
-        args = shlex.split(line)
+    def do_destroy(self, arg):
+        """Deletes an instance based on the class and id"""
+        args = shlex.split(arg)
+        if len(args) == 0:
+            print("** class name missing **")
+        elif args[0] in classes:
+            if len(args) > 1:
+                key = args[0] + "." + args[1]
+                if key in models.storage.all(classes[args[0]]):
+                    popped =  models.storage.all(classes[args[0]]).pop(key)
+                    print(popped)
+                    print(type(models.storage.all(classes[args[0]])))
+                    print(models.storage.all(classes[args[0]]))
+                    models.storage.save()
+                else:
+                    print("** no instance found **")
+            else:
+                print("** instance id missing **")
+        else:
+            print("** class doesn't exist **")
+
+    def do_all(self, arg):
+        """Prints string representations of instances"""
+        args = shlex.split(arg)
+        obj_list = []
+        if len(args) == 0:
+            obj_dict = models.storage.all()
+        elif args[0] in classes:
+            obj_dict = models.storage.all(classes[args[0]])
+        else:
+            print("** class doesn't exist **")
+            return False
+        for key in obj_dict:
+            obj_list.append(str(obj_dict[key]))
+        print("[", end="")
+        print(", ".join(obj_list), end="")
+        print("]")
+
+    def do_update(self, arg):
+        args = shlex.split(arg)
         if len(args) == 0:
             print('** class name missing **')
             return False
@@ -112,7 +136,7 @@ class KijaniCommand(cmd.Cmd):
             print('** instance id missing **')
             return False
         key = args[0] + "." + args[1]
-        model = models.storage.all()
+        model = models.storage.all(classes[args[0]])
         if key not in model:
             print('** no instance found **')
             return False
@@ -126,10 +150,8 @@ class KijaniCommand(cmd.Cmd):
             attribute_key = args[2]
             attribute_value = args[3]
             new_attribute[attribute_key] = attribute_value
-            new_cls_obj = BaseModel(**new_attribute)
-            new_cls_obj.save()
-            storage.new(new_cls_obj)
-
+            setattr(model[key], args[2], args[3])
+            model[key].save()
 
 
 

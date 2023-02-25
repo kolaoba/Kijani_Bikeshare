@@ -1,12 +1,13 @@
 #!/usr/bin/python3
 """Defines the station class"""
 import models
-from models.base_model import BaseModel
-from sqlalchemy import Column, String, ForeignKey, Integer, Geometry
+from models.base_model import BaseModel, Base
+from sqlalchemy import Column, String, ForeignKey, Integer
+from models.custom_datatype.geometry import Geometry
 from sqlalchemy.orm import relationship
 
 
-class Station(BaseModel):
+class Station(BaseModel, Base):
     """Represents a docking station.
     Attributes:
         area_id(str): The Area id
@@ -17,14 +18,13 @@ class Station(BaseModel):
         longitude (float): The longitude of the station
         latitude (float): The latitude of the station
     """
-    if models.storage_t == "db":
-        __tablename__ = 'stations'
-        name = Column(String(128), nullable=False)
-        area_id = Column(String(60), ForeignKey('areas.id'), nullable=False)
-        description = Column(String(128), nullable=False)
-        capacity = Column(Integer, nullable=False)
-        rack_id = Column(String(60), ForeignKey('racks.id'), nullable=False)
-        location = Column(Geometry('POINT'), nullable=False)
+    __tablename__ = 'stations'
+    name = Column(String(128), nullable=False)
+    area_id = Column(String(60), ForeignKey('areas.id'), nullable=False)
+    description = Column(String(128), nullable=False)
+    capacity = Column(Integer, nullable=False)
+    rack_id = Column(String(60), ForeignKey('racks.id'), nullable=False)
+    location = Column(Geometry, nullable=False)
 
     def __init__(self, *args, **kwargs):
         """initializes station"""
