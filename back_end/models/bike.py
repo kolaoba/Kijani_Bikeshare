@@ -4,7 +4,7 @@ import models
 from models.base_model import BaseModel, Base
 from os import getenv
 import sqlalchemy
-from sqlalchemy import Column, String, ForeignKey, Integer
+from sqlalchemy import Column, String, ForeignKey, Integer, Index
 from models.custom_datatype.geometry import Geometry
 from sqlalchemy.orm import relationship
 
@@ -21,8 +21,10 @@ class Bike(BaseModel, Base):
     status = Column(String(128), nullable=False)
     location = Column(Geometry, nullable=True)
 
-    # trips = relationship("Trip", backref="bike")
+    trips = relationship("Trip", backref="bike")
 
     def __init__(self, *args, **kwargs):
         """initializes bike"""
         super().__init__(*args, **kwargs)
+
+Index('bike_id_index', Bike.id)

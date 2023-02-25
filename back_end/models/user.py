@@ -5,7 +5,7 @@ import models
 from models.base_model import BaseModel, Base
 from os import getenv
 import sqlalchemy
-from sqlalchemy import Column, String, ForeignKey, BigInteger
+from sqlalchemy import Column, String, ForeignKey, BigInteger, Index
 from sqlalchemy.orm import relationship
 from hashlib import md5
 from flask_login import UserMixin
@@ -13,14 +13,14 @@ from flask_login import UserMixin
 class User(BaseModel, Base, UserMixin):
     """Representation of a user """
     __tablename__ = 'users'
-    email = Column(String(128), nullable=False)
+    email = Column(String(128), nullable=False, unique=True)
     password = Column(String(128), nullable=False)
     first_name = Column(String(128), nullable=True)
     last_name = Column(String(128), nullable=True)
     phone_number = Column(BigInteger, nullable=True)
     city_id = Column(String(60), ForeignKey('cities.id'), nullable=False)
 
-    # trips = relationship("Trip", backref="user")
+    trips = relationship("Trip", backref="user")
 
     def __init__(self, *args, **kwargs):
         """initializes user"""
@@ -31,3 +31,5 @@ class User(BaseModel, Base, UserMixin):
         if name == "password":
             value = md5(value.encode()).hexdigest()
         super().__setattr__(name, value)
+
+Index('user_id_index', User.id)

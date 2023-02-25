@@ -31,7 +31,7 @@ CREATE TABLE `areas` (
   PRIMARY KEY (`id`),
   KEY `city_id` (`city_id`),
   CONSTRAINT `areas_ibfk_1` FOREIGN KEY (`city_id`) REFERENCES `cities` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -57,7 +57,8 @@ CREATE TABLE `bikes` (
   `id` varchar(60) NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `bike_id_index` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -67,7 +68,7 @@ CREATE TABLE `bikes` (
 
 LOCK TABLES `bikes` WRITE;
 /*!40000 ALTER TABLE `bikes` DISABLE KEYS */;
-INSERT INTO `bikes` VALUES ('Mountain Bike','Available',_binary '\0\0\0\0\0\0\0\0\0\0\0\0\0$@\0\0\0\0\0\04@','47a44b11-3bf9-4a73-b467-2516ac48f2b5','2023-02-25 12:54:50','2023-02-25 12:54:50');
+INSERT INTO `bikes` VALUES ('Electric Bike','Unavailable',_binary '\0\0\0\0\0\0\0\0\0\0\0\0\04@\0\0\0\0\0\0>@','56e08a97-3f02-4342-828c-dad6d4e68210','2023-02-25 17:12:52','2023-02-25 17:12:52'),('Mountain Bike','Available',_binary '\0\0\0\0\0\0\0\0\0\0\0\0\0$@\0\0\0\0\0\04@','eca6ab66-7a56-4325-8363-2905a0ecfe5b','2023-02-25 17:12:32','2023-02-25 17:12:32');
 /*!40000 ALTER TABLE `bikes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -84,7 +85,7 @@ CREATE TABLE `cities` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -93,7 +94,7 @@ CREATE TABLE `cities` (
 
 LOCK TABLES `cities` WRITE;
 /*!40000 ALTER TABLE `cities` DISABLE KEYS */;
-INSERT INTO `cities` VALUES ('London','1d4fcfe4-3dd2-4649-a7ec-3c952f3077a7','2023-02-24 12:23:38','2023-02-24 12:23:38'),('Kuala','43d34020-24c4-4f6d-aec4-096977f5f1b9','2023-02-24 12:54:01','2023-02-24 13:40:00'),('Lagos','5d9f7611-5f04-44d0-830b-1797f02b6210','2023-02-24 10:53:09','2023-02-24 10:53:09');
+INSERT INTO `cities` VALUES ('Lagos','60be7fb7-6bc3-45c0-8d28-9aa780ef8a4f','2023-02-25 17:11:16','2023-02-25 17:11:16'),('Kigali','82306f74-9ff1-4238-9535-c32ef37c96c3','2023-02-25 17:11:27','2023-02-25 17:11:27'),('Abeokuta','97d7538a-eaf2-4fab-a9c3-fe55545a604f','2023-02-25 17:11:33','2023-02-25 17:11:33'),('Abuja','ed7b040a-2e40-4936-9fc0-c60b0e2ca470','2023-02-25 17:11:21','2023-02-25 17:11:21');
 /*!40000 ALTER TABLE `cities` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -109,7 +110,9 @@ CREATE TABLE `racks` (
   `id` varchar(60) NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `station_id` (`station_id`),
+  CONSTRAINT `racks_ibfk_1` FOREIGN KEY (`station_id`) REFERENCES `stations` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -139,7 +142,11 @@ CREATE TABLE `stations` (
   `id` varchar(60) NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `rack_id` (`rack_id`),
+  KEY `area_id` (`area_id`),
+  CONSTRAINT `stations_ibfk_1` FOREIGN KEY (`rack_id`) REFERENCES `racks` (`id`),
+  CONSTRAINT `stations_ibfk_2` FOREIGN KEY (`area_id`) REFERENCES `areas` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -160,7 +167,9 @@ DROP TABLE IF EXISTS `trips`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `trips` (
-  `duration` varchar(128) NOT NULL,
+  `duration` int(11) NOT NULL,
+  `user_id` varchar(60) NOT NULL,
+  `bike_id` varchar(60) NOT NULL,
   `start_time` datetime NOT NULL,
   `end_time` datetime NOT NULL,
   `start_location` geometry NOT NULL,
@@ -168,7 +177,11 @@ CREATE TABLE `trips` (
   `id` varchar(60) NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  KEY `bike_id` (`bike_id`),
+  CONSTRAINT `trips_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  CONSTRAINT `trips_ibfk_2` FOREIGN KEY (`bike_id`) REFERENCES `bikes` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -199,9 +212,11 @@ CREATE TABLE `users` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`),
   KEY `city_id` (`city_id`),
+  KEY `user_id_index` (`id`),
   CONSTRAINT `users_ibfk_1` FOREIGN KEY (`city_id`) REFERENCES `cities` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -210,7 +225,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('kola@test.com','81dc9bdb52d04dc20036dbd8313ed055','Kolapo','Obaj',1234567,'1d4fcfe4-3dd2-4649-a7ec-3c952f3077a7','1923bf1f-722d-43bb-9c06-0eebc4a6e718','2023-02-24 15:20:06','2023-02-24 15:20:06');
+INSERT INTO `users` VALUES ('kola@test.com','827ccb0eea8a706c4c34a16891f84e7b','Kolapo','Obajuluwa',12345678,'60be7fb7-6bc3-45c0-8d28-9aa780ef8a4f','4ed3a0a2-dde2-41f3-87c0-0e8387ca05f1','2023-02-25 17:15:05','2023-02-25 17:15:05');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -223,4 +238,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-02-25 14:18:49
+-- Dump completed on 2023-02-25 18:15:54
