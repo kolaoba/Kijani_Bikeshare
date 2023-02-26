@@ -3,10 +3,11 @@ from models import storage
 from api.v1.views import app_views
 from flask import abort, jsonify, make_response, request
 from flasgger.utils import swag_from
-
+from flask_login import login_required
 
 @app_views.route('/users', methods=['GET'], strict_slashes=False)
 @swag_from('documentation/user/all_users.yml')
+@login_required
 def get_users():
     """
     Retrieves the list of all user objects
@@ -17,3 +18,5 @@ def get_users():
     for user in all_users:
         list_users.append(user.to_dict())
     return jsonify(list_users)
+
+

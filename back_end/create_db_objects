@@ -1,0 +1,8 @@
+create City name="Lagos"
+create City name="Abuja"
+create City name="Kigali"
+create User email="test@test.com" first_name="test" last_name="testo" password="12345"
+create User email="test1@test.com" first_name="test1" last_name="testo1" password="12345"
+create User email="test2@test.com" first_name="test2" last_name="testo2" password="12345"
+create Bike type="Mountain_Bike" status="Available" location="POINT(10_20)"
+create Bike type="Electric_Bike" status="Unavailable" location="POINT(10_30)"

@@ -1,12 +1,12 @@
 #!/usr/bin/python
 """ holds class Bike"""
-import models
+
 from models.base_model import BaseModel, Base
-from os import getenv
-import sqlalchemy
-from sqlalchemy import Column, String, ForeignKey, Integer
+
+from sqlalchemy import Column, String
 from models.custom_datatype.geometry import Geometry
 from sqlalchemy.orm import relationship
+
 
 class Bike(BaseModel, Base):
     """Represents a single bike
@@ -19,7 +19,9 @@ class Bike(BaseModel, Base):
     __tablename__ = 'bikes'
     type = Column(String(128), nullable=False)
     status = Column(String(128), nullable=False)
-    location = Column(Geometry, nullable=True)
+    location = Column(Geometry, nullable=False)
+
+    trips = relationship("Trip", backref="bike")
 
     def __init__(self, *args, **kwargs):
         """initializes bike"""
