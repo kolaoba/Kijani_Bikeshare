@@ -19,7 +19,7 @@ class Bike(BaseModel, Base):
     __tablename__ = 'bikes'
     type = Column(String(128), nullable=False)
     status = Column(String(128), nullable=False)
-    location = Column(Geometry, nullable=True)
+    location = Column(Geometry, nullable=False)
 
     trips = relationship("Trip", backref="bike")
 

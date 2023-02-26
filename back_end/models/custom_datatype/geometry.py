@@ -17,8 +17,9 @@ class Geometry(UserDefinedType):
         def process(value):
             if value is None:
                 return None
-            assert isinstance(value, tuple)
-            lat, lng = value
+            print(value)
+            # assert isinstance(value, tuple)
+            lng, lat = value[6:-1].split()
             return "POINT(%s %s)" % (lng, lat)
         return process
 
