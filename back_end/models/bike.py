@@ -1,12 +1,12 @@
 #!/usr/bin/python
 """ holds class Bike"""
-import models
+
 from models.base_model import BaseModel, Base
-from os import getenv
-import sqlalchemy
-from sqlalchemy import Column, String, ForeignKey, Integer, Index
+
+from sqlalchemy import Column, String
 from models.custom_datatype.geometry import Geometry
 from sqlalchemy.orm import relationship
+
 
 class Bike(BaseModel, Base):
     """Represents a single bike

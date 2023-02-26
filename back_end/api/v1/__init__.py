@@ -1,7 +1,7 @@
-from flask import Flask
-from flask_login import LoginManager
+from flask import Flask, url_for, render_template
+from flask_login import LoginManager, login_required
 import secrets
-from flask import Flask, request, render_template, make_response, jsonify
+from flask import Flask
 from models import storage
 
 
@@ -22,7 +22,6 @@ def create_app():
     @login_manager.user_loader
     def load_user(user_id):
         # since the user_id is just the primary key of our user table, use it in the query for the user
-        print(f"This is the user_id: {user_id}")
         return storage.get(User, user_id)
     
     # blueprint for auth routes in our app
@@ -35,7 +34,5 @@ def create_app():
 
     from api.v1.views import app_views
     app.register_blueprint(app_views)
-
     
-
     return app

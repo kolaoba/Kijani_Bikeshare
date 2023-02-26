@@ -1,10 +1,10 @@
 #!/usr/bin/python3
 """Contains class Trip"""
-import models
+
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, ForeignKey, DateTime, Integer
 from models.custom_datatype.geometry import Geometry
-from sqlalchemy.orm import relationship
+
 
 class Trip(BaseModel, Base):
     """Represents Trip class"""
@@ -20,4 +20,3 @@ class Trip(BaseModel, Base):
     def __init__(self, *args, **kwargs):
         """initializes Trip"""
         super().__init__(*args, **kwargs)
-

@@ -8,21 +8,20 @@ from models.area import Area
 from models.base_model import BaseModel, Base
 from models.city import City
 from models.bike import Bike
-from models.payment import Payment
+# from models.payment import Payment
 from models.rack import Rack
 from models.user import User
 from models.trip import Trip
 from models.user import User
 from models.station import Station
 from os import getenv
-# import sqlalchemy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 
 classes = {"Area": Area,
            "Bike": Bike,
            "City": City,
-        #    "Payment": Payment,
+           #    "Payment": Payment,
            "Rack": Rack,
            "Station": Station,
            "User": User,

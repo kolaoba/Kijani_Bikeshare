@@ -6,7 +6,6 @@ from sqlalchemy import Column, String, ForeignKey, Integer
 from models.custom_datatype.geometry import Geometry
 from sqlalchemy.orm import relationship
 
-
 class Station(BaseModel, Base):
     """Represents a docking station.
     Attributes:
@@ -23,8 +22,10 @@ class Station(BaseModel, Base):
     area_id = Column(String(60), ForeignKey('areas.id'), nullable=False)
     description = Column(String(128), nullable=False)
     capacity = Column(Integer, nullable=False)
-    rack_id = Column(String(60), ForeignKey('racks.id'), nullable=False)
+    rack_id = Column(String(60), ForeignKey('racks.id', name='fk_station_rack_id'), nullable=False)
     location = Column(Geometry, nullable=False)
+
+    # racks = relationship("Rack", backref="station", cascade="all, delete, delete-orphan")
 
     def __init__(self, *args, **kwargs):
         """initializes station"""

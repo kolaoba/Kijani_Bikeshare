@@ -1,6 +1,7 @@
 from sqlalchemy import func
 from sqlalchemy.types import UserDefinedType
 
+
 class Geometry(UserDefinedType):
     def get_col_spec(self):
         return 'GEOMETRY'

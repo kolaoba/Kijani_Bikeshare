@@ -1,10 +1,8 @@
 #!/usr/bin/python
-""" holds class City"""
-import models
+"""holds class City"""
+
 from models.base_model import BaseModel, Base
-from os import getenv
-import sqlalchemy
-from sqlalchemy import Column, String, ForeignKey, Integer
+from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 
 
@@ -14,8 +12,6 @@ class City(BaseModel, Base):
     name = Column(String(128), nullable=False)
 
     areas = relationship("Area", backref="city")
-    users = relationship("User", backref="city")
-
 
     def __init__(self, *args, **kwargs):
         """initializes city"""

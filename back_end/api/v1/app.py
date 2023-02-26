@@ -24,7 +24,7 @@ from .auth import auth as auth_blueprint
 app.register_blueprint(auth_blueprint)
 
 # cors = CORS(app, resources={r"/*": {"origins": "0.0.0.0"}})
-# CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
+CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 
 login_manager.login_view = "auth.login"
 login_manager.login_message_category = "danger"

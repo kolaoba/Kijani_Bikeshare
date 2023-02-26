@@ -1,6 +1,5 @@
 import cmd
 import shlex
-from models.base_model import BaseModel
 from models.engine.db_storage import classes
 import models
 
@@ -42,10 +41,10 @@ class KijaniCommand(cmd.Cmd):
                 else:
                     try:
                         value = int(value)
-                    except:
+                    except BaseException:
                         try:
                             value = float(value)
-                        except:
+                        except BaseException:
                             continue
                 new_dict[key] = value
         return new_dict
@@ -94,7 +93,7 @@ class KijaniCommand(cmd.Cmd):
             if len(args) > 1:
                 key = args[0] + "." + args[1]
                 if key in models.storage.all(classes[args[0]]):
-                    popped =  models.storage.all(classes[args[0]]).pop(key)
+                    popped = models.storage.all(classes[args[0]]).pop(key)
                     print(popped)
                     print(type(models.storage.all(classes[args[0]])))
                     print(models.storage.all(classes[args[0]]))
@@ -139,7 +138,7 @@ class KijaniCommand(cmd.Cmd):
         if key not in model:
             print('** no instance found **')
             return False
-        if len (args) == 2:
+        if len(args) == 2:
             print('** attribute name missing **')
         if len(args) == 3:
             print('** value missing **')
@@ -151,8 +150,6 @@ class KijaniCommand(cmd.Cmd):
             new_attribute[attribute_key] = attribute_value
             setattr(model[key], args[2], args[3])
             model[key].save()
-
-
 
 
 if __name__ == '__main__':
