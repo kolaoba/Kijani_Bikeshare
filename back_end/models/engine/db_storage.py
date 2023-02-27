@@ -104,6 +104,12 @@ class DBStorage:
         if user_obj:
             return user_obj
         return None
+    
+    def get_city_by_name(self, name):
+        city_obj = self.__session.query(City).filter_by(name=name).first()
+        if city_obj:
+            return city_obj
+        return None
 
     def count(self, cls=None):
         """

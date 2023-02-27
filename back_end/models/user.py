@@ -16,6 +16,7 @@ class User(BaseModel, Base, UserMixin):
     first_name = Column(String(128), nullable=True)
     last_name = Column(String(128), nullable=True)
     phone_number = Column(BigInteger, nullable=True)
+    city_id = Column(String(60), ForeignKey('cities.id'), nullable=False)
 
     trips = relationship("Trip", backref="user")
 

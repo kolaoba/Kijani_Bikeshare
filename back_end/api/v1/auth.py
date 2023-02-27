@@ -14,11 +14,13 @@ def login():
 def login_post():
 
     if request.method == 'POST':
+        
         if request.form:
             data = request.form
             remember = True if data.get('remember') else False
         elif request.get_json():
             data = request.get_json()
+            remember = True if data.get('remember') else False
 
         user = storage.get_user_by_email(email=data.get('email'))
         
@@ -47,19 +49,28 @@ def handle_signup():
 
         if request.form:
             data = request.form
-            print(data)
 
         elif request.get_json():
             data = request.get_json()
 
         user = storage.get_user_by_email(email=data.get('email')) # if this returns a user, then the email already exists in database
-
+        city = storage.get_city_by_name(name=data.get('city_name'))
+        
         if user: # if a user is found, we want to redirect back to signup page so user can try again  
             flash('Email address already exists')
             return redirect(url_for('auth.signup'))
+        
+        if not city:
+            flash('Please Enter a valid City')
+            return redirect(url_for('auth.signup'))
 
-        # create new user with the form data. Hash the password so plaintext version isn't saved.
-        new_user = User(**data)
+        # adjust user data replacing city_name with city_id
+        new_data = {**data}
+        new_data["city_id"] = city.id
+        new_data.pop("city_name")
+        
+        # create new user with the form new_data. Hash the password so plaintext version isn't saved.
+        new_user = User(**new_data)
 
         # add the new user to the database
         new_user.save()
