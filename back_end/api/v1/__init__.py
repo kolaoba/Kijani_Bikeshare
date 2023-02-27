@@ -1,5 +1,5 @@
-from flask import Flask, url_for, render_template
-from flask_login import LoginManager, login_required
+from flask import Flask
+from flask_login import LoginManager
 import secrets
 from flask import Flask
 from models import storage
