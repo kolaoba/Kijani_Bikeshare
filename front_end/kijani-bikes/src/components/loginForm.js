@@ -1,3 +1,5 @@
+// Login Form Component
+
 import { Link } from "react-router-dom";
 import classes from "./loginForm.module.css";
 import { useState, useRef, useEffect } from "react";
@@ -7,13 +9,21 @@ function LoginForm() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
 
+  // email focus on mount
   useEffect(() => {
     emailRef.current.focus();
   }, []);
 
-  const handleSubmit = (e) => {
+  //  Error message for invalid input
+  useEffect(() => {
+    setErrMsg("");
+  }, [email, password]);
+
+  // Handle form submit
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("email: ", email);
     setEmail("");
@@ -34,7 +44,9 @@ function LoginForm() {
           </p>
         </div>
       ) : (
-        <div className={classes.container}>
+        <section className={classes.container}>
+          <p className={errMsg ? "classes.error" : "classes.off"}>{errMsg}</p>
+
           <h2>Login to get started</h2>
           <form>
             <label htmlFor="email">
@@ -71,7 +83,7 @@ function LoginForm() {
           <Link to="/signup">Sign Up</Link>
         </button> */}
           </span>
-        </div>
+        </section>
       )}
     </>
   );

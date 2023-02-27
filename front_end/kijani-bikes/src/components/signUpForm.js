@@ -136,8 +136,8 @@ function SignupForm() {
   return (
     <>
       {success ? (
-        <section>
-          <h1>Success</h1>
+        <section className={classes.container}>
+          <h2>Success</h2>
           <p>Thank you for registering</p>
         </section>
       ) : (
