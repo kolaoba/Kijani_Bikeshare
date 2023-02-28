@@ -14,7 +14,7 @@ def create_app():
     app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
     app.secret_key = secrets.token_hex(16)
     
-    migrate.init_app(app)
+    migrate.init_app(app, storage.engine)
 
     login_manager = LoginManager()
     login_manager.init_app(app)
