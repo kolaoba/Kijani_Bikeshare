@@ -8,7 +8,7 @@ export const SidebarData = [
 {
 	title: "Profile",
 	path: "/profile",
-	icon: <AiIcons.AiFillHome />,
+	icon: <AiIcons.AiOutlineUser />,
 	iconClosed: <RiIcons.RiArrowDownSFill />,
 	iconOpened: <RiIcons.RiArrowUpSFill />,
 
@@ -28,7 +28,7 @@ export const SidebarData = [
 {
 	title: "Rides",
 	path: "/rides",
-	icon: <IoIcons.IoIosPaper />,
+	icon: <IoIcons.IoIosBicycle />,
 	iconClosed: <RiIcons.RiArrowDownSFill />,
 	iconOpened: <RiIcons.RiArrowUpSFill />,
 
@@ -65,7 +65,7 @@ export const SidebarData = [
 {
 	title: "Trips",
 	path: "/trips",
-	icon: <FaIcons.FaEnvelopeOpenText />,
+	icon: <FaIcons.FaBiking />,
 
 	iconClosed: <RiIcons.RiArrowDownSFill />,
 	iconOpened: <RiIcons.RiArrowUpSFill />,
@@ -86,7 +86,7 @@ export const SidebarData = [
 {
 	title: "Settings",
 	path: "/settings",
-	icon: <IoIcons.IoMdHelpCircle />,
+	icon: <IoIcons.IoMdSettings />,
 },
 ];
 
