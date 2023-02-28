@@ -96,10 +96,11 @@ function SignupForm() {
   const submitHandler = async (e) => {
     e.preventDefault();
     const formData = {
-      first_Name: firstName,
-      last_Name: lastName,
+      first_name: firstName,
+      last_name: lastName,
       phone_number: phone,
       email: email,
+      city_name: "Lagos",
       password: password,
     };
 
@@ -110,12 +111,13 @@ function SignupForm() {
       return;
     }
     try {
-      const response = await axios.get("/login", JSON.stringify(formData), {
+      const response = await axios.post("/signup", JSON.stringify(formData), {
         headers: {
           "Content-Type": "application/json",
           withCredentials: true,
         },
       });
+      console.log(formData);
       console.log(response.data); // Get the response data
       setSuccess(true);
       console.log("Success");
@@ -139,6 +141,9 @@ function SignupForm() {
         <section className={classes.container}>
           <h2>Success</h2>
           <p>Thank you for registering</p>
+          <Link className={classes.link} to="/login">
+            Log In
+          </Link>
         </section>
       ) : (
         <section className={classes.container}>

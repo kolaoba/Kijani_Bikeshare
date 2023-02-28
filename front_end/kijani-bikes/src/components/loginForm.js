@@ -3,6 +3,7 @@
 import { Link } from "react-router-dom";
 import classes from "./loginForm.module.css";
 import { useState, useRef, useEffect } from "react";
+import axios from "../api/axios";
 
 function LoginForm() {
   const emailRef = useRef();
@@ -22,13 +23,41 @@ function LoginForm() {
     setErrMsg("");
   }, [email, password]);
 
-  // Handle form submit
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("email: ", email);
-    setEmail("");
-    setPassword("");
-    setSuccess(true);
+    const formData = {
+      email: email,
+      password: password,
+    };
+
+    const valid1 = email.length > 0;
+    const valid2 = password.length > 0;
+    if (!valid1 || !valid2) {
+      setErrMsg("Invalid entry");
+      return;
+    }
+    try {
+      const response = await axios.post("/login", JSON.stringify(formData), {
+        headers: {
+          "Content-Type": "application/json",
+          withCredentials: true,
+        },
+      });
+      console.log(response.data); // Get the response data
+      setSuccess(true);
+      console.log("Success");
+    } catch (err) {
+      if (!err.response) {
+        setErrMsg("Network Error");
+        return;
+      } else if (err.response.status === 401) {
+        setErrMsg("Invalid credentials");
+        return;
+      } else {
+        setErrMsg("Registration Error");
+        return;
+      }
+    }
   };
 
   return (
@@ -65,7 +94,7 @@ function LoginForm() {
             <br />
             <label htmlFor="password">Password</label>
             <input
-              type="password"
+              type="text"
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
