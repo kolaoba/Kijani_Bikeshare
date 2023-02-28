@@ -2,6 +2,7 @@ import cmd
 import shlex
 from models.engine.db_storage import classes
 import models
+from models import storage
 
 
 class KijaniCommand(cmd.Cmd):
@@ -58,6 +59,11 @@ class KijaniCommand(cmd.Cmd):
         if args[0] in classes:
             new_dict = self._key_value_parser(args[1:])
             print(new_dict)
+            if args[0] == 'User':
+                city = storage.get_obj_by_attr(classes.get('City'), 'name',new_dict.get('city_name'))
+                new_dict["city_id"] = city.id
+                new_dict.pop("city_name")
+            print(new_dict)
             instance = classes[args[0]](**new_dict)
         else:
             print("class does not exist!")
@@ -74,7 +80,6 @@ class KijaniCommand(cmd.Cmd):
         if args[0] in classes:
             if len(args) > 1:
                 key = args[0] + "." + args[1]
-                # print(models.storage.all())
                 if key in models.storage.all(classes[args[0]]):
                     print(models.storage.all(classes[args[0]])[key])
                 else:

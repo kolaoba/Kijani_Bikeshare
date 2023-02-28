@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from werkzeug.security import check_password_hash
 from flask_login import login_user, logout_user, login_required
-from models.user import User
+from models.engine.db_storage import classes
 from models import storage
 
 auth = Blueprint('auth', __name__)
@@ -14,13 +14,15 @@ def login():
 def login_post():
 
     if request.method == 'POST':
+        
         if request.form:
             data = request.form
             remember = True if data.get('remember') else False
         elif request.get_json():
             data = request.get_json()
+            remember = True if data.get('remember') else False
 
-        user = storage.get_user_by_email(email=data.get('email'))
+        user = storage.get_obj_by_attr(classes.get('User'), 'email',data.get('email'))
         
         # check if user actually exists
         # take the user supplied password, hash it, and compare it to the hashed password in database
@@ -47,19 +49,28 @@ def handle_signup():
 
         if request.form:
             data = request.form
-            print(data)
 
         elif request.get_json():
             data = request.get_json()
 
-        user = storage.get_user_by_email(email=data.get('email')) # if this returns a user, then the email already exists in database
-
+        user = storage.get_obj_by_attr(classes.get('User'), 'email',data.get('email')) # if this returns a user, then the email already exists in database
+        city = storage.get_obj_by_attr(classes.get('City'), 'name',data.get('city_name'))
+        
         if user: # if a user is found, we want to redirect back to signup page so user can try again  
             flash('Email address already exists')
             return redirect(url_for('auth.signup'))
+        
+        if not city:
+            flash('Please Enter a valid City')
+            return redirect(url_for('auth.signup'))
 
-        # create new user with the form data. Hash the password so plaintext version isn't saved.
-        new_user = User(**data)
+        # adjust user data replacing city_name with city_id
+        new_data = {**data}
+        new_data["city_id"] = city.id
+        new_data.pop("city_name")
+        
+        # create new user with the form new_data. Hash the password so plaintext version isn't saved.
+        new_user = classes.get('User')(**new_data)
 
         # add the new user to the database
         new_user.save()
