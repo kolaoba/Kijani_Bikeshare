@@ -99,16 +99,17 @@ class DBStorage:
 
         return None
 
-    def get_user_by_email(self, email):
-        user_obj = self.__session.query(User).filter_by(email=email).first()
-        if user_obj:
-            return user_obj
-        return None
-    
-    def get_city_by_name(self, name):
-        city_obj = self.__session.query(City).filter_by(name=name).first()
-        if city_obj:
-            return city_obj
+    def get_obj_by_attr(self, cls, attr_name, attr_value):
+        """Returns Object based on it's attribute by querying directly
+        against the DB and returns None if not found"""
+
+        if cls not in classes.values():
+            return None
+
+        obj = self.__session.query(cls).filter_by(
+            **{attr_name: attr_value}).first()
+        if obj:
+            return obj
         return None
 
     def count(self, cls=None):

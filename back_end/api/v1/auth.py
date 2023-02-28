@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from werkzeug.security import check_password_hash
 from flask_login import login_user, logout_user, login_required
-from models.user import User
+from models.engine.db_storage import classes
 from models import storage
 
 auth = Blueprint('auth', __name__)
@@ -22,7 +22,7 @@ def login_post():
             data = request.get_json()
             remember = True if data.get('remember') else False
 
-        user = storage.get_user_by_email(email=data.get('email'))
+        user = storage.get_obj_by_attr(classes.get('User'), 'email',data.get('email'))
         
         # check if user actually exists
         # take the user supplied password, hash it, and compare it to the hashed password in database
@@ -53,8 +53,8 @@ def handle_signup():
         elif request.get_json():
             data = request.get_json()
 
-        user = storage.get_user_by_email(email=data.get('email')) # if this returns a user, then the email already exists in database
-        city = storage.get_city_by_name(name=data.get('city_name'))
+        user = storage.get_obj_by_attr(classes.get('User'), 'email',data.get('email')) # if this returns a user, then the email already exists in database
+        city = storage.get_obj_by_attr(classes.get('City'), 'name',data.get('city_name'))
         
         if user: # if a user is found, we want to redirect back to signup page so user can try again  
             flash('Email address already exists')
@@ -70,7 +70,7 @@ def handle_signup():
         new_data.pop("city_name")
         
         # create new user with the form new_data. Hash the password so plaintext version isn't saved.
-        new_user = User(**new_data)
+        new_user = classes.get('User')(**new_data)
 
         # add the new user to the database
         new_user.save()
