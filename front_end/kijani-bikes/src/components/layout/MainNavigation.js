@@ -17,7 +17,7 @@ function MainNavigation() {
             <Link to="/blog">Blog</Link>
           </li>
           <li>
-            <Link to="/contact">Contact</Link>
+            <Link to="/dashboard">Dashboard</Link>
           </li>
         </ul>
       </nav>
