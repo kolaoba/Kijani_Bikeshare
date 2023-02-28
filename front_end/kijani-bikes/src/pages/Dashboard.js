@@ -1,70 +1,70 @@
-import MainNavigation from "../components/layout/MainNavigation";
-import { Route } from 'react-router-dom';
-import DashboardLayout from '../components/layout/dashboard/DashboardLayout';
-import SidebarNav from '../components/layout/SidebarNav';
-import Footer from "../components/layout/Footer";
-import DashboardButtons from './DashboardButtons';
+import React, { useState } from "react";
+import Sidebar from "../components/Sidebar";
+import { Rides, EnterCurrentLocation, UnlockBike, EnterDestination, Dock } from "./Rides";
+import { Profile, AccountInfo, Transactions } from "./Profile";
+import { Trips, RecentTrips, TripRewards } from "./Trips";
+import Contact from "./ContactUs";
+import Settings from "./Settings";
 
-export function Dash() {
-  return (
-    <section>
-      <MainNavigation />
-      <DashboardLayout />
-      <Footer />
-    </section>
-  );
-}
+function Dashboard() {
+  const [currentPage, setCurrentPage] = useState("");
 
-export function DashboardPage() {
-  return (
-    <DashboardLayout>
-      <SidebarNav />
-      <div className="content">
-        <Route exact path="/dashboard" component={Dashboard} />
-        <Route path="/dashboard/profile" component={Profile} />
-        <Route path="/dashboard/trips" component={Trips} />
-        <Route path="/dashboard/maps" component={Maps} />
-      </div>
-    </DashboardLayout>
-  );
-}
+  const handleNavigation = (page) => {
+    setCurrentPage(page);
+  };
 
-export function Dashboard() {
+  let content;
+  switch (currentPage) {
+    case "profile":
+      content = <Profile />;
+      break;
+    case "account":
+      content = <AccountInfo />;
+      break;
+    case "transactions":
+      content = <Transactions />;
+      break;
+    case "rides":
+      content = <Rides />;
+      break;
+    case "enter-current-location":
+      content = <EnterCurrentLocation />;
+      break;
+    case "unlock-bike":
+      content = <UnlockBike />;
+      break;
+    case "enter-destination":
+      content = <EnterDestination />;
+      break;
+    case "dock":
+      content = <Dock />;
+      break;
+    case "trips":
+      content = <Trips />;
+      break;
+    case "recent-trips":
+      content = <RecentTrips />;
+      break;
+    case "trip-rewards":
+      content = <TripRewards />;
+      break;
+    case "contact":
+      content = <Contact />;
+      break;
+    case "settings":
+      content = <Settings />;
+      break;
+    default:
+      content = null;
+  }
+
   return (
     <div>
-      <MainNavigation/>
-      <p>Welcome to the dashboard page!</p>
-      <DashboardButtons />
-      <SidebarNav />
-      <Footer />
+      <Sidebar handleNavigation={handleNavigation} />
+      {content}
     </div>
   );
 }
 
-export function Profile() {
-  return (
-    <div>
-      <h1>Page 1</h1>
-      <p>Welcome to Page 1!</p>
-    </div>
-  );
-}
-
-export function Trips() {
-  return (
-    <div>
-      <h1>Page 2</h1>
-      <p>Welcome to Page 2!</p>
-    </div>
-  );
-}
-
-export function Maps() {
-  return (
-    <div>
-      <h1>Page 3</h1>
-      <p>Welcome to Page 3!</p>
-    </div>
-  );
-}
+export default Dashboard;
 
