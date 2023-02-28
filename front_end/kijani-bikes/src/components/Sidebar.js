@@ -6,6 +6,7 @@ import * as AiIcons from "react-icons/ai";
 import { SidebarData } from "./SidebarData";
 import SubMenu from "./SubMenu";
 import { IconContext } from "react-icons/lib";
+import Footer from "./layout/Footer";
 
 const Nav = styled.div`
 background: #15171c;
@@ -71,6 +72,7 @@ return (
 			})}
 		</SidebarWrap>
 		</SidebarNav>
+		<Footer />
 	</IconContext.Provider>
 	</>
 );
