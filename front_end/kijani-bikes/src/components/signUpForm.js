@@ -101,6 +101,7 @@ function SignupForm() {
       phone_number: phone,
       email: email,
       password: password,
+      city_name: "Lagos",
     };
 
     const valid1 = pwdRegex.test(password);
@@ -110,7 +111,7 @@ function SignupForm() {
       return;
     }
     try {
-      const response = await axios.get("/login", JSON.stringify(formData), {
+      const response = await axios.post("/signup", JSON.stringify(formData), {
         headers: {
           "Content-Type": "application/json",
           withCredentials: true,
