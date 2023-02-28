@@ -1,9 +1,11 @@
-from flask import Flask, url_for, render_template
-from flask_login import LoginManager, login_required
+from flask import Flask
+from flask_login import LoginManager
 import secrets
 from flask import Flask
 from models import storage
+from flask_migrate import Migrate
 
+migrate = Migrate()
 
 def create_app():
 
@@ -11,6 +13,8 @@ def create_app():
 
     app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
     app.secret_key = secrets.token_hex(16)
+    
+    migrate.init_app(app, storage.engine)
 
     login_manager = LoginManager()
     login_manager.init_app(app)
