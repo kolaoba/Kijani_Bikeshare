@@ -11,7 +11,7 @@ from sqlalchemy.orm import relationship
 class Rack(BaseModel, Base):
     """Representation of rack """
     __tablename__ = 'racks'
-    station_id = Column(String(128), ForeignKey('stations.id',  name='fk_rack_station_id'), nullable=False)
+    # station_id = Column(String(128), ForeignKey('stations.id',  name='fk_rack_station_id'), nullable=False)
 
     # stations = relationship("Station", backref="rack", cascade="all, delete, delete-orphan")
 

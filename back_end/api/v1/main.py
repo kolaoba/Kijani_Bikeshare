@@ -1,15 +1,14 @@
-from flask import Blueprint, render_template
-from flask_login import login_required, current_user
+from flask import Blueprint, session, jsonify
+from models import storage
+from models.engine.db_storage import classes
 
 main = Blueprint('main', __name__)
 
-@main.route('/')
-def index():
-    return render_template('index.html')
-
 @main.route('/profile')
-@login_required
 def profile():
-    # return render_template('profile.html', current_user=current_user)
-    print(current_user)
-    return current_user.to_dict()
+    user_id = session.get("user_id")
+    if not user_id:
+        return jsonify({"error": "Unauthorized"}), 401
+    
+    user = storage.get_obj_by_attr(classes.get('User'), 'id', user_id)
+    return jsonify(user.to_dict())

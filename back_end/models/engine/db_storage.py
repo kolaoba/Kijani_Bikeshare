@@ -14,15 +14,18 @@ from models.user import User
 from models.trip import Trip
 from models.user import User
 from models.station import Station
-from os import getenv
+import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
+from dotenv import load_dotenv
+
+load_dotenv()
 
 classes = {"Area": Area,
            "Bike": Bike,
            "City": City,
            #    "Payment": Payment,
-           "Rack": Rack,
+        #    "Rack": Rack,
            "Station": Station,
            "User": User,
            "Trip": Trip
@@ -36,16 +39,25 @@ class DBStorage:
 
     def __init__(self):
         """Instantiate a DBStorage object"""
-        HBNB_MYSQL_USER = getenv('HBNB_MYSQL_USER')
-        HBNB_MYSQL_PWD = getenv('HBNB_MYSQL_PWD')
-        HBNB_MYSQL_HOST = getenv('HBNB_MYSQL_HOST')
-        HBNB_MYSQL_DB = getenv('HBNB_MYSQL_DB')
-        HBNB_ENV = getenv('HBNB_ENV')
-        self.engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.
-                                      format(HBNB_MYSQL_USER,
-                                             HBNB_MYSQL_PWD,
-                                             HBNB_MYSQL_HOST,
-                                             HBNB_MYSQL_DB))
+        # HBNB_MYSQL_USER = os.environ['HBNB_MYSQL_USER']
+        # HBNB_MYSQL_PWD = os.environ['HBNB_MYSQL_PWD']
+        # HBNB_MYSQL_HOST = os.environ['HBNB_MYSQL_HOST']
+        # HBNB_MYSQL_DB = os.environ['HBNB_MYSQL_DB']
+        HBNB_PG_USER = os.environ['HBNB_PG_USER']
+        HBNB_PG_PWD = os.environ['HBNB_PG_PWD']
+        HBNB_PG_HOST = os.environ['HBNB_PG_HOST']
+        HBNB_PG_DB = os.environ['HBNB_PG_DB']
+        HBNB_ENV = os.environ['HBNB_ENV']
+        self.engine = create_engine('postgresql://{}:{}@{}/{}'.
+                                      format(HBNB_PG_USER,
+                                             HBNB_PG_PWD,
+                                             HBNB_PG_HOST,
+                                             HBNB_PG_DB))
+        # self.engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.
+        #                               format(HBNB_MYSQL_USER,
+        #                                      HBNB_MYSQL_PWD,
+        #                                      HBNB_MYSQL_HOST,
+        #                                      HBNB_MYSQL_DB))
         if HBNB_ENV == "test":
             Base.metadata.drop_all(self.engine)
 

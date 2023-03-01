@@ -3,7 +3,7 @@
 
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, ForeignKey, DateTime, Integer
-from models.custom_datatype.geometry import Geometry
+from geoalchemy2 import Geometry
 
 
 class Trip(BaseModel, Base):
@@ -14,9 +14,9 @@ class Trip(BaseModel, Base):
     bike_id = Column(String(60), ForeignKey('bikes.id'), nullable=False)
     start_time = Column(DateTime, nullable=False)
     end_time = Column(DateTime, nullable=False)
-    start_location = Column(Geometry, nullable=False)
-    destination = Column(Geometry, nullable=False)
-
+    start_location = Column(Geometry('POINT'), nullable=False)
+    destination = Column(Geometry('POINT'), nullable=False)
+    
     def __init__(self, *args, **kwargs):
         """initializes Trip"""
         super().__init__(*args, **kwargs)

@@ -15,15 +15,21 @@ config = context.config
 fileConfig(config.config_file_name)
 logger = logging.getLogger('alembic.env')
 
+import re
+
+exclude_tables = re.sub(
+    r"\s+",
+    "",
+    config.get_section_option("alembic:exclude", "tables"),  # replace whitespace
+).split(",")
+
+
+def include_object(object, name, type_, *args, **kwargs):
+    return not (type_ == 'table' and name in exclude_tables)
 
 def get_engine():
-    try:
-        # this works with Flask-SQLAlchemy<3 and Alchemical
-        return storage.engine
-        # return current_app.extensions['migrate'].db.get_engine()
-    except TypeError:
-        # this works with Flask-SQLAlchemy>=3
-        return current_app.extensions['migrate'].db.engine
+    return storage.engine
+    
 
 
 def get_engine_url():
@@ -48,8 +54,6 @@ target_db = current_app.extensions['migrate'].db
 
 
 def get_metadata():
-    if hasattr(target_db, 'metadatas'):
-        return target_db.metadatas[None]
     return Base.metadata
 
 
@@ -67,7 +71,7 @@ def run_migrations_offline():
     """
     url = config.get_main_option("sqlalchemy.url")
     context.configure(
-        url=url, target_metadata=get_metadata(), literal_binds=True
+        url=url, target_metadata=target_metadata, include_object=include_object
     )
 
     with context.begin_transaction():
@@ -97,9 +101,11 @@ def run_migrations_online():
     with connectable.connect() as connection:
         context.configure(
             connection=connection,
-            target_metadata=get_metadata(),
-            process_revision_directives=process_revision_directives,
-            **current_app.extensions['migrate'].configure_args
+            target_metadata=target_metadata,
+            include_object=include_object,
+            include_schemas=False,
+            process_revision_directives=process_revision_directives
+            # **current_app.extensions['migrate'].configure_args
         )
 
         with context.begin_transaction():
