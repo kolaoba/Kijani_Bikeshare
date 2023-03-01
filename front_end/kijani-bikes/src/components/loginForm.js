@@ -23,6 +23,8 @@ function LoginForm() {
     setErrMsg("");
   }, [email, password]);
 
+  const [loginResponse, setLoginResponse] = useState("");
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = {
@@ -43,6 +45,7 @@ function LoginForm() {
           withCredentials: true,
         },
       });
+      setLoginResponse(response.data);
       console.log(response.data); // Get the response data
       setSuccess(true);
       console.log("Success");
@@ -66,7 +69,8 @@ function LoginForm() {
         <div className={classes.container}>
           <h2>Success!</h2>
           <p>
-            You have successfully logged in.{" "}
+            Welcome back, {loginResponse.first_name}! <br />
+            You have successfully logged in.
             <Link className={classes.link} to="/">
               Go To Dashboard
             </Link>

@@ -36,7 +36,8 @@ def login_post():
             setattr(user, 'is_active', True)
 
         login_user(user, remember=remember)
-        return redirect(url_for('main.profile'))
+        # return redirect(url_for('main.profile'))
+        return user.to_dict()
 
 @auth.route('/signup')
 def signup():
