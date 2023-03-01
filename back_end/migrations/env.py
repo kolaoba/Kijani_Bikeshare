@@ -103,7 +103,7 @@ def run_migrations_online():
             connection=connection,
             target_metadata=target_metadata,
             include_object=include_object,
-            include_schemas=False,
+            include_schemas=True,
             process_revision_directives=process_revision_directives
             # **current_app.extensions['migrate'].configure_args
         )

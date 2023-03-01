@@ -39,27 +39,17 @@ class DBStorage:
 
     def __init__(self):
         """Instantiate a DBStorage object"""
-        # HBNB_MYSQL_USER = os.environ['HBNB_MYSQL_USER']
-        # HBNB_MYSQL_PWD = os.environ['HBNB_MYSQL_PWD']
-        # HBNB_MYSQL_HOST = os.environ['HBNB_MYSQL_HOST']
-        # HBNB_MYSQL_DB = os.environ['HBNB_MYSQL_DB']
-        HBNB_PG_USER = os.environ['HBNB_PG_USER']
-        HBNB_PG_PWD = os.environ['HBNB_PG_PWD']
-        HBNB_PG_HOST = os.environ['HBNB_PG_HOST']
-        HBNB_PG_DB = os.environ['HBNB_PG_DB']
-        HBNB_ENV = os.environ['HBNB_ENV']
+        KJB_PG_USER = os.environ['KJB_PG_USER']
+        KJB_PG_PWD = os.environ['KJB_PG_PWD']
+        KJB_PG_HOST = os.environ['KJB_PG_HOST']
+        KJB_PG_DB = os.environ['KJB_PG_DB']
         self.engine = create_engine('postgresql://{}:{}@{}/{}'.
-                                      format(HBNB_PG_USER,
-                                             HBNB_PG_PWD,
-                                             HBNB_PG_HOST,
-                                             HBNB_PG_DB))
-        # self.engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.
-        #                               format(HBNB_MYSQL_USER,
-        #                                      HBNB_MYSQL_PWD,
-        #                                      HBNB_MYSQL_HOST,
-        #                                      HBNB_MYSQL_DB))
-        if HBNB_ENV == "test":
-            Base.metadata.drop_all(self.engine)
+                                      format(KJB_PG_USER,
+                                             KJB_PG_PWD,
+                                             KJB_PG_HOST,
+                                             KJB_PG_DB))
+        # if KJB_ENV == "test":
+        #     Base.metadata.drop_all(self.engine)
 
     def all(self, cls=None):
         """query on the current database session"""
