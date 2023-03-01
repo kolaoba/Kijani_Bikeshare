@@ -20,7 +20,7 @@ def login_post():
             remember = True if data.get('remember') else False
         elif request.get_json():
             data = request.get_json()
-            remember = True if data.get('remember') else False
+            remember = True # if data.get('remember') else False
 
         user = storage.get_obj_by_attr(classes.get('User'), 'email',data.get('email'))
         
@@ -36,7 +36,8 @@ def login_post():
             setattr(user, 'is_active', True)
 
         login_user(user, remember=remember)
-        return redirect(url_for('main.profile'))
+        # return redirect(url_for('main.profile'))
+        return user.to_dict()
 
 @auth.route('/signup')
 def signup():

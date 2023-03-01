@@ -1,24 +1,64 @@
+// Login Form Component
+
 import { Link } from "react-router-dom";
 import classes from "./loginForm.module.css";
 import { useState, useRef, useEffect } from "react";
+import axios from "../api/axios";
 
 function LoginForm() {
   const emailRef = useRef();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
 
+  // email focus on mount
   useEffect(() => {
     emailRef.current.focus();
   }, []);
 
-  const handleSubmit = (e) => {
+  //  Error message for invalid input
+  useEffect(() => {
+    setErrMsg("");
+  }, [email, password]);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("email: ", email);
-    setEmail("");
-    setPassword("");
-    setSuccess(true);
+    const formData = {
+      email: email,
+      password: password,
+    };
+
+    const valid1 = email.length > 0;
+    const valid2 = password.length > 0;
+    if (!valid1 || !valid2) {
+      setErrMsg("Invalid entry");
+      return;
+    }
+    try {
+      const response = await axios.post("/login", JSON.stringify(formData), {
+        headers: {
+          "Content-Type": "application/json",
+          withCredentials: true,
+        },
+      });
+      console.log(response.data); // Get the response data
+      setSuccess(true);
+      console.log("Success");
+      return response.data
+    } catch (err) {
+      if (!err.response) {
+        setErrMsg("Network Error");
+        return;
+      } else if (err.response.status === 401) {
+        setErrMsg("Invalid credentials");
+        return;
+      } else {
+        setErrMsg("Registration Error");
+        return;
+      }
+    }
   };
 
   return (
@@ -26,7 +66,9 @@ function LoginForm() {
       {success ? (
         <div className={classes.container}>
           <h2>Success!</h2>
+
           <p>
+            {/* Hello, {response.data.first_name} */}
             You have successfully logged in.{" "}
             <Link className={classes.link} to="/">
               Go To Dashboard
@@ -34,7 +76,9 @@ function LoginForm() {
           </p>
         </div>
       ) : (
-        <div className={classes.container}>
+        <section className={classes.container}>
+          <p className={errMsg ? "classes.error" : "classes.off"}>{errMsg}</p>
+
           <h2>Login to get started</h2>
           <form>
             <label htmlFor="email">
@@ -53,7 +97,7 @@ function LoginForm() {
             <br />
             <label htmlFor="password">Password</label>
             <input
-              type="password"
+              type="text"
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -71,7 +115,7 @@ function LoginForm() {
           <Link to="/signup">Sign Up</Link>
         </button> */}
           </span>
-        </div>
+        </section>
       )}
     </>
   );
