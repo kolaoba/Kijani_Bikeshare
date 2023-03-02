@@ -4,6 +4,8 @@ import Dashboard from "./pages/Dashboard";
 
 import LandingPage from "./pages/LandingPage";
 import Login from "./pages/Login";
+import { Profile } from "./pages/Profile";
+import Settings from "./pages/Settings";
 import Signup from "./pages/Signup";
 
 function App() {
@@ -16,6 +18,8 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/about" element={<About />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="profile" element={<Profile />} />
         </Routes>
       </BrowserRouter>
     </>

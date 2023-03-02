@@ -100,6 +100,7 @@ function SignupForm() {
       last_name: lastName,
       phone_number: phone,
       email: email,
+      city_name: "Lagos",
       password: password,
       city_name: "Lagos",
     };
@@ -117,6 +118,7 @@ function SignupForm() {
           withCredentials: true,
         },
       });
+      console.log(formData);
       console.log(response.data); // Get the response data
       setSuccess(true);
       console.log("Success");
@@ -137,9 +139,12 @@ function SignupForm() {
   return (
     <>
       {success ? (
-        <section>
-          <h1>Success</h1>
+        <section className={classes.container}>
+          <h2>Success</h2>
           <p>Thank you for registering</p>
+          <Link className={classes.link} to="/login">
+            Log In
+          </Link>
         </section>
       ) : (
         <section className={classes.container}>
