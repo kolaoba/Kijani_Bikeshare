@@ -17,6 +17,8 @@ def create_app():
     CORS(app, resources={r"/*": {"origins": ["http://localhost:3000"]}})
 
 
+    CORS(app, resources={r"/*": {"origins": ["http://localhost:3000"]}})
+    
     app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
     app.secret_key = secrets.token_hex(16)
     

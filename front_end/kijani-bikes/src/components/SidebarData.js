@@ -26,7 +26,7 @@ export const SidebarData = [
 	],
 },
 {
-	title: "Rides",
+	title: "Ride",
 	path: "/rides",
 	icon: <IoIcons.IoIosBicycle />,
 	iconClosed: <RiIcons.RiArrowDownSFill />,

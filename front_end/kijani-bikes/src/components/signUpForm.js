@@ -102,6 +102,7 @@ function SignupForm() {
       email: email,
       city_name: "Lagos",
       password: password,
+      city_name: "Lagos",
     };
 
     const valid1 = pwdRegex.test(password);

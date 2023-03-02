@@ -23,6 +23,7 @@ function LoginForm() {
     setErrMsg("");
   }, [email, password]);
 
+
   const [loginResponse, setLoginResponse] = useState("");
 
   const handleSubmit = async (e) => {
@@ -45,10 +46,12 @@ function LoginForm() {
           withCredentials: true,
         },
       });
+      
       setLoginResponse(response.data);
       console.log(response.data); // Get the response data
       setSuccess(true);
       console.log("Success");
+
     } catch (err) {
       if (!err.response) {
         setErrMsg("Network Error");
@@ -68,9 +71,12 @@ function LoginForm() {
       {success ? (
         <div className={classes.container}>
           <h2>Success!</h2>
+
           <p>
+
             Welcome back, {loginResponse.first_name}! <br />
             You have successfully logged in.
+
             <Link className={classes.link} to="/">
               Go To Dashboard
             </Link>

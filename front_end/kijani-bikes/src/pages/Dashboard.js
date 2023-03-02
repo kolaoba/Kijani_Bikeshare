@@ -5,6 +5,7 @@ import { Profile, AccountInfo, Transactions } from "./Profile";
 import { Trips, RecentTrips, TripRewards } from "./Trips";
 import Contact from "./ContactUs";
 import Settings from "./Settings";
+//import Footer from "../components/layout/Footer";
 
 function Dashboard() {
   const [currentPage, setCurrentPage] = useState("");
@@ -17,6 +18,9 @@ function Dashboard() {
   switch (currentPage) {
     case "profile":
       content = <Profile />;
+      <select>
+	<option value="Account info">AccountInfo </option>
+      </select>
       break;
     case "account":
       content = <AccountInfo />;
