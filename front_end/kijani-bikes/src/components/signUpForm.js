@@ -96,8 +96,8 @@ function SignupForm() {
   const submitHandler = async (e) => {
     e.preventDefault();
     const formData = {
-      first_Name: firstName,
-      last_Name: lastName,
+      first_name: firstName,
+      last_name: lastName,
       phone_number: phone,
       email: email,
       password: password,

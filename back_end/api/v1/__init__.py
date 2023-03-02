@@ -11,12 +11,12 @@ def create_app():
 
     app = Flask(__name__)
     app.config.from_object(ApplicationConfig)
-    
+
     # CORS(app, resources={r"/*": {"origins": ["http://localhost:3000"]}})
     CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
-    
+
     migrate.init_app(app, storage.engine)
-    
+
     # blueprint for auth routes in our app
     from .auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint)
@@ -29,3 +29,6 @@ def create_app():
     app.register_blueprint(app_views)
     
     return app
+
+# if __name__ == '__main__':
+#     app.run(port=5000, debug=True)
