@@ -3,7 +3,7 @@
 import models
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, ForeignKey, Integer
-from models.custom_datatype.geometry import Geometry
+from geoalchemy2 import Geometry
 from sqlalchemy.orm import relationship
 
 class Station(BaseModel, Base):
@@ -22,8 +22,8 @@ class Station(BaseModel, Base):
     area_id = Column(String(60), ForeignKey('areas.id'), nullable=False)
     description = Column(String(128), nullable=False)
     capacity = Column(Integer, nullable=False)
-    rack_id = Column(String(60), ForeignKey('racks.id', name='fk_station_rack_id'), nullable=False)
-    location = Column(Geometry, nullable=False)
+    # rack_id = Column(String(60), ForeignKey('racks.id', name='fk_station_rack_id'), nullable=False)
+    location = Column(Geometry('POINT'), nullable=False)
 
     # racks = relationship("Rack", backref="station", cascade="all, delete, delete-orphan")
 
