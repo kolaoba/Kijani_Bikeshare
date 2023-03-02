@@ -4,13 +4,18 @@ import secrets
 from flask import Flask
 from models import storage
 from flask_migrate import Migrate
-from flask_cors import CORS
+from flask_cors  import CORS
+
 
 migrate = Migrate()
 
 def create_app():
 
     app = Flask(__name__)
+    # CORS(app, resources={r"/*": {"origins": "*"}})
+
+    CORS(app, resources={r"/*": {"origins": ["http://localhost:3000"]}})
+
 
     CORS(app, resources={r"/*": {"origins": ["http://localhost:3000"]}})
     

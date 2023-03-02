@@ -10,6 +10,4 @@ def index():
 @main.route('/profile')
 @login_required
 def profile():
-    # return render_template('profile.html', current_user=current_user)
-    print(current_user)
     return current_user.to_dict()
