@@ -1,4 +1,6 @@
 # Kijani Bike-share
+![logo1-removebg-preview](https://user-images.githubusercontent.com/105214329/222890428-6b4c17b2-8de9-411d-9176-3cf9b7288a2b.png)
+
 ### A Green Micro-Mobility Innovation
 # The Idea - Why Kijani Bikeshare
 
