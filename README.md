@@ -1,6 +1,5 @@
 # Kijani Bike-share
 ![logo1-removebg-preview](https://user-images.githubusercontent.com/105214329/222890428-6b4c17b2-8de9-411d-9176-3cf9b7288a2b.png)
-
 ### A Green Micro-Mobility Innovation
 # The Idea - Why Kijani Bikeshare
 Our bike sharing app is a comprehensive solution that leverages modern technology to provide an efficient and convenient way for users to commute. The app allows users to reserve bikes at nearby stations and drop them off at their desired location, making it an ideal choice for short commutes.
