@@ -2,7 +2,6 @@
 ### A Green Micro-Mobility Innovation
 # The Idea - Why Kijani Bikeshare
 
-## The Shell
 
 ## About This Project
 
