@@ -11,6 +11,8 @@
 * Back end - Python/Flask
 * Database - PostgreSQL
 ## The architecture flow:
+![Untitled](https://user-images.githubusercontent.com/105214329/222890175-d040a28b-4808-41cf-8c7c-ffd867bb996e.png)
+
 
 ## LICENSE
 Copyright (c) 2023 Dorine Tipo, Mutiu Falade and Kolapo Obajuluwa
