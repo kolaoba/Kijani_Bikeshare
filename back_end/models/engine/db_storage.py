@@ -100,7 +100,7 @@ class DBStorage:
                 return value
 
         return None
-
+    #                          
     def get_obj_by_attr(self, cls, attr_name, attr_value):
         """Returns Object based on it's attribute by querying directly
         against the DB and returns None if not found"""
