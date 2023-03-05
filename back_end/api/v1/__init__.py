@@ -1,5 +1,4 @@
 from flask import Flask
-from flask import Flask
 from models import storage
 from flask_migrate import Migrate
 from flask_cors import CORS
