@@ -25,7 +25,7 @@ Additionally, the app allows users to input their start and drop-off points on G
 
 
 ## LICENSE
-Copyright (c) 2023 Dorine Tipo, Mutiu Falade and Kolapo Obajuluwa
+Copyright (c) 2023 Dorine Tipo, Mutiu Falade and Kolapo Obajulwa
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
