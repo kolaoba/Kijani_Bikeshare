@@ -6,9 +6,9 @@ import * as RiIcons from "react-icons/ri";
 
 export const SidebarData = [
 {
-	title: "Profile",
+	title: "Reserve",
 	path: "/profile",
-	icon: <AiIcons.AiOutlineUser />,
+	icon: <AiIcons.AiOutlineSelect />,
 	iconClosed: <RiIcons.RiArrowDownSFill />,
 	iconOpened: <RiIcons.RiArrowUpSFill />,
 
@@ -58,9 +58,9 @@ export const SidebarData = [
 	],
 },
 {
-	title: "Contact",
-	path: "/contact",
-	icon: <FaIcons.FaPhone />,
+	title: "Payment",
+	path: "/payment",
+	icon: <FaIcons.FaMoneyBill />,
 },
 {
 	title: "Trips",

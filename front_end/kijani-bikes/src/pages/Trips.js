@@ -1,9 +1,12 @@
 import React from "react";
+import Footer from "../components/layout/Footer";
 
 export const Trips = () => {
 return (
 	<div className="events">
-	<h1>Your Trips with Kijani</h1>
+	<h1>Thank you for riding the green wave! Here's to a cleaner planet!</h1>
+	<h2>Dock your bike to end ride and thanks again for reducing your carbon footprint today with Kijani!</h2>
+	<Footer />
 	</div>
 );
 };

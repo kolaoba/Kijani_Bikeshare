@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import Sidebar from "../components/Sidebar";
+import MapContainer from "../components/maps/BikeShareMap";
 import { Rides, EnterCurrentLocation, UnlockBike, EnterDestination, Dock } from "./Rides";
 import { Profile, AccountInfo, Transactions } from "./Profile";
 import { Trips, RecentTrips, TripRewards } from "./Trips";
-import Contact from "./ContactUs";
+import Payment from "./Payment";
 import Settings from "./Settings";
-//import Footer from "../components/layout/Footer";
+import MainNavigation from "../components/layout/MainNavigation";
 
 function Dashboard() {
   const [currentPage, setCurrentPage] = useState("");
@@ -52,8 +53,8 @@ function Dashboard() {
     case "trip-rewards":
       content = <TripRewards />;
       break;
-    case "contact":
-      content = <Contact />;
+    case "payment":
+      content = <Payment />;
       break;
     case "settings":
       content = <Settings />;
@@ -66,6 +67,8 @@ function Dashboard() {
     <div>
       <Sidebar handleNavigation={handleNavigation} />
       {content}
+       <MapContainer />
+       <MainNavigation />
     </div>
   );
 }
