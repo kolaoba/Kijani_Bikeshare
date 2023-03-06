@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import classes from "./loginForm.module.css";
 import { useState, useRef, useEffect } from "react";
 import axios from "../api/axios";
+import UserContext from "../context/UserContext";
+import { useContext } from "react";
 
 function LoginForm() {
   const emailRef = useRef();
@@ -23,15 +25,18 @@ function LoginForm() {
     setErrMsg("");
   }, [email, password]);
 
-
   const [loginResponse, setLoginResponse] = useState("");
+  const { user, setUser } = useContext(UserContext);
 
-  const handleSubmit = async (e) => {
+  const HandleSubmit = async (e) => {
     e.preventDefault();
     const formData = {
       email: email,
       password: password,
     };
+    console.log("before");
+    // const { setUser } = useContext(UserContext);
+    console.log("after");
 
     const valid1 = email.length > 0;
     const valid2 = password.length > 0;
@@ -39,6 +44,7 @@ function LoginForm() {
       setErrMsg("Invalid entry");
       return;
     }
+
     try {
       const response = await axios.post("/login", JSON.stringify(formData), {
         headers: {
@@ -46,12 +52,15 @@ function LoginForm() {
           withCredentials: true,
         },
       });
-      
-      setLoginResponse(response.data);
-      console.log(response.data); // Get the response data
-      setSuccess(true);
-      console.log("Success");
 
+      setLoginResponse(response.data);
+      // Get the response data
+      setSuccess(true);
+      console.log(response.data);
+      console.log("Success");
+      setUser(response.data);
+      console.log(user);
+      // console.log(user);
     } catch (err) {
       if (!err.response) {
         setErrMsg("Network Error");
@@ -73,11 +82,9 @@ function LoginForm() {
           <h2>Success!</h2>
 
           <p>
-
             Welcome back, {loginResponse.first_name}! <br />
             You have successfully logged in.
-
-            <Link className={classes.link} to="/">
+            <Link className={classes.link} to="/dashboard">
               Go To Dashboard
             </Link>
           </p>
@@ -111,7 +118,7 @@ function LoginForm() {
               required
             />
             <br />
-            <button onClick={handleSubmit}>Login</button>
+            <button onClick={HandleSubmit}>Login</button>
           </form>
           <span>
             Don't have an account?
