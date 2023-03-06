@@ -7,6 +7,7 @@ const mapStyles = {
   height: '100%'
 };
 
+const Google_Api_Key = process.env.REACT_APP_GOOGLE_API_KEY;
 export class MapContainer extends Component {
   state = {
     showingInfoWindow: false,
@@ -62,5 +63,5 @@ export class MapContainer extends Component {
 }
 
 export default GoogleApiWrapper({
-  apiKey: 'AIzaSyBcpaRCdTJvNwze31A2BaNxbaUYfvrgb-4'
+  apiKey: Google_Api_Key
 })(MapContainer);
