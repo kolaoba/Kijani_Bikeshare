@@ -1,26 +1,29 @@
-import React from "react";
+// User Profile page component for the app
 
-export const Profile = () => {
-return (
-	<div className="home">
-	<h1>Kijani Bikes User Profile</h1>
-	</div>
-);
-};
+import Navbar from "../components/ForDash/Navbar";
+import React, { useContext } from "react";
+import UserContext from "../context/UserContext";
 
-export const AccountInfo = () => {
-return (
-	<div className="home">
-	<h1>Kijani basic user info</h1>
-	</div>
-);
-};
+function Profile() {
+  const { user } = useContext(UserContext);
 
-export const Transactions = () => {
-return (
-	<div className="home">
-	<h1>Transaction and payment history</h1>
-	</div>
-);
-};
+  return (
+    <>
+      <Navbar>
+        <section>
+          <div>
+            <h1>Hello {user.first_name}</h1>
+            <p>Here is your profile page</p>
+            <p>
+              Name: {user.last_name} {user.first_name}
+            </p>
+            <p>Email: {user.email}</p>
+            <p>Phone: {user.phone_number}</p>
+          </div>
+        </section>
+      </Navbar>
+    </>
+  );
+}
 
+export default Profile;

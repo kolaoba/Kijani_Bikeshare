@@ -15,4 +15,19 @@ function HowPart(props) {
   );
 }
 
+export function PartHow(props) {
+  return (
+    <div className={classes.parts}>
+      <div className={classes.imgdiv}>
+        <img src={props.img} alt={props.discription} className={classes.img} />
+      </div>
+      <div>
+        <h2>{props.title}</h2>
+        <p>Save Time And Money By Signing Up For A Free Account Now!</p>
+        <button>{props.btn}</button>
+      </div>
+    </div>
+  );
+}
+
 export default HowPart;
