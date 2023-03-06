@@ -6,7 +6,8 @@ import * as AiIcons from "react-icons/ai";
 import { SidebarData } from "./SidebarData";
 import SubMenu from "./SubMenu";
 import { IconContext } from "react-icons/lib";
-import Footer from "./layout/Footer";
+import MainNavigation from "./layout/MainNavigation";
+import SearchBox from "./maps/SearchBox";
 
 const Nav = styled.div`
   background: #15171c;
@@ -59,7 +60,7 @@ return (
 					marginLeft: "200px",
 					color: "green" }}
 		>
-			Kijani Dashboard
+			User Dashboard
 		</h1>
 		</Nav>
 		<SidebarNav sidebar={sidebar}>
@@ -72,7 +73,8 @@ return (
 			})}
 		</SidebarWrap>
 		</SidebarNav>
-		<Footer />
+		<MainNavigation />
+		<SearchBox />
 	</IconContext.Provider>
 	</>
 );

@@ -1,10 +1,13 @@
 import { Link } from "react-router-dom";
 import classes from "./MainNavigation.module.css";
+import logoImage from "../../assets/kijanilogo.png";
 
 function MainNavigation() {
   return (
     <header className={classes.header}>
-      <div className={classes.logo}>kjb</div>
+      <Link to="/">
+      <img src={logoImage} alt="Logo" className={classes.logo} />
+      </Link>
       <nav>
         <ul>
           <li>
