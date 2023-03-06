@@ -1,6 +1,6 @@
 import classes from "./Hero.module.css";
 
-import hero from "../../assets/bike.png";
+import hero from "../../assets/roadbike.png";
 
 function Hero() {
   return (
