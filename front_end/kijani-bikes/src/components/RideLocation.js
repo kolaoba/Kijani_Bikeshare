@@ -1,47 +1,74 @@
-// Ride location component
+// Select start and end location for a ride
 
-import React from "react";
+import React, { useState } from "react";
+import axios from "../api/axios";
 import classes from "./RideLocation.module.css";
 
-const RideLocation = () => {
+function DropdownList() {
+  const [startLocation, setStartLocation] = useState("");
+  const [endLocation, setEndLocation] = useState("");
+  const [ride, setRide] = useState("");
+
+  //   Handle start location change
+  function handleStart(e) {
+    setStartLocation(e.target.value);
+  }
+
+  //   Handle end location change
+  function handleEnd(e) {
+    setEndLocation(e.target.value);
+  }
+
+  //   Handle submit button click
+  function handleSubmit(e) {
+    e.preventDefault();
+    console.log(startLocation, endLocation);
+    setRide({ startLocation, endLocation });
+
+    const formData = {
+      startLocation: startLocation,
+      endLocation: endLocation,
+    };
+
+    try {
+      const response = axios.post("/ride", JSON.stringify(formData), {
+        headers: {
+          "Content-Type": "application/json",
+          withCredentials: true,
+        },
+      });
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   return (
-    <section className={classes.rideCont}>
-      <h1>Ride Location</h1>
-      <label>
-        Enter Current Location:
-        <input type="text" name="currentLocation" />
-      </label>
-      <label>
-        Enter Destination:
-        <input type="text" name="destination" />
-      </label>
-      <button type="submit">Submit</button>
-    </section>
+    <div className={classes.rideCont}>
+      <div>
+        {" "}
+        <h3>Choose Start Location</h3>
+        <select value={startLocation} onChange={handleStart}>
+          <option value="">Select Start Location</option>
+          <option value="dock1">Unilag Gate 1</option>
+          <option value="option2">Unilag Main Auditorium</option>
+        </select>
+      </div>
+      <div>
+        <h3>Choose End Location</h3>
+        <select value={endLocation} onChange={handleEnd}>
+          <option value="">Select End Location</option>
+          <option value="dock1">Unilag Gate 1</option>
+          <option value="option2">Unilag Main Auditorium</option>
+        </select>
+      </div>
+      <div>
+        <button onClick={handleSubmit} className={classes.btn}>
+          Start Ride
+        </button>
+      </div>
+    </div>
   );
-};
+}
 
-export default RideLocation;
-
-// import React, { useState } from "react";
-
-// function DropdownList() {
-//   const [selectedValue, setSelectedValue] = useState("");
-
-//   function handleSelectChange(event) {
-//     setSelectedValue(event.target.value);
-//   }
-
-//   return (
-//     <div>
-//       <select value={selectedValue} onChange={handleSelectChange}>
-//         <option value="">Select an option</option>
-//         <option value="option1">Option 1</option>
-//         <option value="option2">Option 2</option>
-//         <option value="option3">Option 3</option>
-//       </select>
-//       <p>You selected: {selectedValue}</p>
-//     </div>
-//   );
-// }
-
-// export default DropdownList;
+export default DropdownList;
