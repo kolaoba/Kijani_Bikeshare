@@ -21,8 +21,11 @@ class Bike(BaseModel, Base):
     status = Column(String(128), nullable=False)
     location = Column(Geometry('POINT', srid=4326), nullable=False)
 
-    trips = relationship("Trip", backref="bike", cascade="all, delete, delete-orphan")
-    
+    trips = relationship(
+        "Trip",
+        backref="bike",
+        cascade="all, delete, delete-orphan")
+
     stations = relationship("Station", secondary=f'{schema}.bike_station')
 
     def __init__(self, *args, **kwargs):

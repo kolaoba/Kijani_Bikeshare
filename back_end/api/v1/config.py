@@ -5,9 +5,10 @@ import os
 
 load_dotenv()
 
+
 class ApplicationConfig:
     SECRET_KEY = secrets.token_hex(16)
-    SQLALCHEMY_TRACK_NOTIFICATIONS = False 
+    SQLALCHEMY_TRACK_NOTIFICATIONS = False
     SQLALCHEMY_ECHO = False
     JSONIFY_PRETTYPRINT_REGULAR = True
     SESSION_TYPE = "redis"

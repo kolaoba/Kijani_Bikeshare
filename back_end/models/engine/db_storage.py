@@ -5,7 +5,7 @@ Contains the class DBStorage
 
 import models
 from models.area import Area
-from models.base_model import BaseModel, Base
+from models.base_model import Base
 from models.bike import Bike
 from models.bike_station import BikeStation
 from models.city import City
@@ -27,7 +27,7 @@ classes = {"Area": Area,
            "BikeStation": BikeStation,
            "City": City,
            #    "Payment": Payment,
-        #    "Rack": Rack,
+           #    "Rack": Rack,
            "Station": Station,
            "User": User,
            "Trip": Trip
@@ -46,10 +46,10 @@ class DBStorage:
         KJB_PG_HOST = os.environ['KJB_PG_HOST']
         KJB_PG_DB = os.environ['KJB_PG_DB']
         self.engine = create_engine('postgresql://{}:{}@{}/{}'.
-                                      format(KJB_PG_USER,
-                                             KJB_PG_PWD,
-                                             KJB_PG_HOST,
-                                             KJB_PG_DB))
+                                    format(KJB_PG_USER,
+                                           KJB_PG_PWD,
+                                           KJB_PG_HOST,
+                                           KJB_PG_DB))
         # if os.environ['KJB_ENV'] == "test":
         #     Base.metadata.drop_all(self.engine)
 
@@ -102,7 +102,7 @@ class DBStorage:
                 return value
 
         return None
-                         
+
     def get_obj_by_attr(self, cls, attr_name, attr_value):
         """Returns Object based on it's attribute by querying directly
         against the DB and returns None if not found"""
@@ -115,30 +115,33 @@ class DBStorage:
         if obj:
             return obj
         return None
-    
+
     def get_long_lat_from_obj(self, obj):
         """Returns the longitude and latitude of an object"""
         if not obj.location:
             return None
-        
-        longitude, latitude = self.__session.query(func.ST_X(obj.location), func.ST_Y(obj.location)).first()
+
+        longitude, latitude = self.__session.query(
+            func.ST_X(
+                obj.location), func.ST_Y(
+                obj.location)).first()
         return longitude, latitude
-    
+
     def get_available_bike_count(self, station_id):
         """Returns the number of available bikes at a station"""
         return self.__session.query(func.count(BikeStation.bike_id)).filter_by(
             station_id=station_id, status=1).scalar()
-        
+
     def get_available_bike_from_station(self, station_id):
         """Returns an available bike at a station"""
         return self.__session.query(BikeStation).filter_by(
             station_id=station_id, status=1).first()
-        
+
     def get_active_trip(self, user_id):
         """Returns the active trip of a user"""
         return self.__session.query(Trip).filter_by(
-            user_id=user_id, status=0).first() 
-    
+            user_id=user_id, status=0).first()
+
     def count(self, cls=None):
         """
         count the number of objects in storage

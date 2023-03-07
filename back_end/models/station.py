@@ -26,8 +26,11 @@ class Station(BaseModel, Base):
     # rack_id = Column(String(60), ForeignKey('racks.id', name='fk_station_rack_id'), nullable=False)
     location = Column(Geometry('POINT', srid=4326), nullable=False)
 
-    bikes = relationship("Bike", secondary=f'{schema}.bike_station', overlaps="stations")
-    
+    bikes = relationship(
+        "Bike",
+        secondary=f'{schema}.bike_station',
+        overlaps="stations")
+
     # racks = relationship("Rack", backref="station", cascade="all, delete, delete-orphan")
 
     def __init__(self, *args, **kwargs):

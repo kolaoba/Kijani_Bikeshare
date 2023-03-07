@@ -11,8 +11,14 @@ class City(BaseModel, Base):
     __tablename__ = 'cities'
     name = Column(String(128), nullable=False, unique=True)
 
-    areas = relationship("Area", backref="city", cascade="all, delete, delete-orphan")
-    users = relationship("User", backref="city", cascade="all, delete, delete-orphan")
+    areas = relationship(
+        "Area",
+        backref="city",
+        cascade="all, delete, delete-orphan")
+    users = relationship(
+        "User",
+        backref="city",
+        cascade="all, delete, delete-orphan")
 
     def __init__(self, *args, **kwargs):
         """initializes city"""

@@ -19,13 +19,14 @@ load_dotenv()
 if os.environ['KJB_ENV'] == 'test':
     schema = 'kijani_test'
 elif os.environ['KJB_ENV'] == 'prod':
-    schema = 'kijani_prod' 
+    schema = 'kijani_prod'
 
 Base = declarative_base(metadata=MetaData(schema=schema))
 
+
 class BaseModel:
     """The BaseModel class from which future classes will be derived"""
-    
+
     id = Column(String(60), primary_key=True)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow)
@@ -85,8 +86,10 @@ class BaseModel:
         if "_sa_instance_state" in new_dict:
             del new_dict["_sa_instance_state"]
         if "location" in new_dict:
-            new_dict["longitude"] = models.storage.get_long_lat_from_obj(self)[0]
-            new_dict["latitude"] = models.storage.get_long_lat_from_obj(self)[1]
+            new_dict["longitude"] = models.storage.get_long_lat_from_obj(self)[
+                0]
+            new_dict["latitude"] = models.storage.get_long_lat_from_obj(self)[
+                1]
             del new_dict["location"]
         if save_fs is None:
             if "password" in new_dict:
