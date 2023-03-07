@@ -14,7 +14,3 @@ class ApplicationConfig:
     SESSION_PERMANENT = False
     SESSION_USE_SIGNER = True
     SESSION_REDIS = redis.from_url(os.environ["REDIS_DB_URL"])
-    if os.environ['KJB_ENV'] == 'test':
-        SQLALCHEMY_DEFAULT_SCHEMA = 'kijani_test'
-    elif os.environ['KJB_ENV'] == 'prod':
-        SQLALCHEMY_DEFAULT_SCHEMA = 'kijani_prod'

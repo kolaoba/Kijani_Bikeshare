@@ -4,7 +4,7 @@ from logging.config import fileConfig
 from flask import current_app
 from models import storage
 from alembic import context
-from models.base_model import Base
+from models.base_model import Base, schema
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -34,11 +34,9 @@ def get_engine():
 
 def get_engine_url():
     try:
-        return get_engine().url.render_as_string(hide_password=False).replace(
-            '%', '%%')
+        return f"{get_engine().url.render_as_string(hide_password=False).replace('%', '%%')}?schema={schema}"
     except AttributeError:
         return str(get_engine().url).replace('%', '%%')
-
 
 # add your model's MetaData object here
 # for 'autogenerate' support
@@ -103,9 +101,9 @@ def run_migrations_online():
             connection=connection,
             target_metadata=target_metadata,
             include_object=include_object,
-            include_schemas=True,
-            process_revision_directives=process_revision_directives
-            # **current_app.extensions['migrate'].configure_args
+            # include_schemas=True,
+            process_revision_directives=process_revision_directives,
+            **current_app.extensions['migrate'].configure_args
         )
 
         with context.begin_transaction():

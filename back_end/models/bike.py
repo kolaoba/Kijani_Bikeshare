@@ -1,11 +1,12 @@
 #!/usr/bin/python
 """ holds class Bike"""
 
-from models.base_model import BaseModel, Base
+from models.base_model import BaseModel, Base, schema
 
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 from geoalchemy2 import Geometry
+
 
 class Bike(BaseModel, Base):
     """Represents a single bike
@@ -18,9 +19,11 @@ class Bike(BaseModel, Base):
     __tablename__ = 'bikes'
     type = Column(String(128), nullable=False)
     status = Column(String(128), nullable=False)
-    location = Column(Geometry('POINT'), nullable=False)
+    location = Column(Geometry('POINT', srid=4326), nullable=False)
 
-    trips = relationship("Trip", backref="bike")
+    trips = relationship("Trip", backref="bike", cascade="all, delete, delete-orphan")
+    
+    stations = relationship("Station", secondary=f'{schema}.bike_station')
 
     def __init__(self, *args, **kwargs):
         """initializes bike"""

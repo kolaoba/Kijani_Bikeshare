@@ -14,7 +14,7 @@ def create_app():
     # CORS(app, resources={r"/*": {"origins": ["http://localhost:3000"]}})
     CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 
-    migrate.init_app(app, storage.engine)
+    migrate.init_app(app, storage.engine, include_schemas=True)
 
     # blueprint for auth routes in our app
     from .auth import auth as auth_blueprint

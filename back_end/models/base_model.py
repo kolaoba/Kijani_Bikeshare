@@ -11,6 +11,7 @@ import uuid
 from dotenv import load_dotenv
 import os
 
+
 time = "%Y-%m-%dT%H:%M:%S.%f"
 
 load_dotenv()
@@ -83,6 +84,10 @@ class BaseModel:
         new_dict["__class__"] = self.__class__.__name__
         if "_sa_instance_state" in new_dict:
             del new_dict["_sa_instance_state"]
+        if "location" in new_dict:
+            new_dict["longitude"] = models.storage.get_long_lat_from_obj(self)[0]
+            new_dict["latitude"] = models.storage.get_long_lat_from_obj(self)[1]
+            del new_dict["location"]
         if save_fs is None:
             if "password" in new_dict:
                 del new_dict["password"]
