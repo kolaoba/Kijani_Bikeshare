@@ -129,6 +129,16 @@ class DBStorage:
         return self.__session.query(func.count(BikeStation.bike_id)).filter_by(
             station_id=station_id, status=1).scalar()
         
+    def get_available_bike_from_station(self, station_id):
+        """Returns an available bike at a station"""
+        return self.__session.query(BikeStation).filter_by(
+            station_id=station_id, status=1).first()
+        
+    def get_active_trip(self, user_id):
+        """Returns the active trip of a user"""
+        return self.__session.query(Trip).filter_by(
+            user_id=user_id, status=0).first() 
+    
     def count(self, cls=None):
         """
         count the number of objects in storage

@@ -6,6 +6,7 @@ from flask import abort, jsonify
 from flasgger.utils import swag_from
 
 
+
 @app_views.route('/station/<name>', methods=['GET'],
                  strict_slashes=False)
 @swag_from('documentation/stations.yml', methods=['GET'])
@@ -18,7 +19,6 @@ def get_station(name):
         name (str): The name of the station
     """
     station = storage.get_obj_by_attr(Station, 'name', name)
-    
     if not station:
         abort(404)
     

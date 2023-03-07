@@ -27,7 +27,7 @@ def login_post():
     # add user to session
     session["user_id"] = user.id
 
-    return jsonify(user.to_dict())
+    return jsonify(user.to_dict()), 200
 
 @auth.route('/signup', methods=['POST'])
 def handle_signup():
@@ -60,9 +60,9 @@ def handle_signup():
     # add user to session
     session["user_id"] = new_user.id
 
-    return jsonify(new_user.to_dict())
+    return jsonify(new_user.to_dict()), 201
 
 @auth.route('/logout')
 def logout():
     session.pop("user_id")
-    return "200"
+    return jsonify({"message": "User logged out successfully"}), 200 
