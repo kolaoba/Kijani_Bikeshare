@@ -1,41 +1,67 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import GeoLocation from './GeoLocation';
+import React, { Component } from 'react';
+import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
+import CurrentLocation from './Geolocation';
 
-function BikeShareMap() {
-  const [userLocation, setUserLocation] = useState(null);
-  const [bikeStations, setBikeStations] = useState([]);
+const mapStyles = {
+  width: '100%',
+  height: '100%'
+};
 
-  useEffect(() => {
-    axios.get('/api/bike-stations')
-      .then((response) => {
-        setBikeStations(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
+const Google_Api_Key = process.env.REACT_APP_GOOGLE_API_KEY;
+export class MapContainer extends Component {
+  state = {
+    showingInfoWindow: false,
+    activeMarker: {},
+    selectedPlace: {}
+  };
+
+  onMarkerClick = (props, marker, e) => {
+    this.setState({
+      selectedPlace: props,
+      activeMarker: marker,
+      showingInfoWindow: true
+    });
+  };
+
+  onClose = props => {
+    if (this.state.showingInfoWindow) {
+      this.setState({
+        showingInfoWindow: false,
+        activeMarker: null
       });
+    }
+  };
 
-    GeoLocation.getCurrentLocation()
-      .then((location) => {
-        setUserLocation(location);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
-
-  return (
-    <MapContainer center={userLocation} zoom={13}>
-      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-      {bikeStations.map((station) => (
-        <Marker key={station.id} position={station.position}>
-          <Popup>{station.name}</Popup>
-        </Marker>
-      ))}
-    </MapContainer>
-  );
+  render() {
+    return (
+      <CurrentLocation
+        centerAroundCurrentLocation
+        google={this.props.google}
+      >
+        <Marker onClick={this.onMarkerClick} name={'Current Location'} />
+        <InfoWindow
+          marker={this.state.activeMarker}
+          visible={this.state.showingInfoWindow}
+          onClose={this.onClose}
+        >
+          <div>
+            <h4>{this.state.selectedPlace.name}</h4>
+          </div>
+        </InfoWindow>
+        <Map
+          google={this.props.google}
+          zoom={14}
+          style={mapStyles}
+          initialCenter={{
+            lat: -1.2884,
+            lng: 36.8233
+          }}
+        />
+      </CurrentLocation>
+    );
+  }
 }
 
-export default BikeShareMap;
-
+export default GoogleApiWrapper({
+  apiKey: Google_Api_Key
+})(MapContainer);

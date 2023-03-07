@@ -5,6 +5,30 @@ import * as IoIcons from "react-icons/io";
 
 export const SidebarData = [
   {
+    title: "Reserve Bike",
+    path: "/reserve",
+    icon: <AiIcons.AiOutlineSelect />,
+    cName: "nav-text",
+  },
+  {
+    title: "Rides",
+    path: "/rides",
+    icon: <IoIcons.IoIosBicycle />,
+    cName: "nav-text",
+  },
+  {
+    title: "Payment",
+    path: "/payment",
+    icon: <FaIcons.FaMoneyBill />,
+    cName: "nav-text",
+  },
+  {
+    title: "Trips",
+    path: "/trips",
+    icon: <FaIcons.FaRoad />,
+    cName: "nav-text",
+  },
+  {
     title: "Profile",
     path: "/profile",
     icon: <AiIcons.AiFillProfile />,
@@ -16,28 +40,11 @@ export const SidebarData = [
     icon: <FaIcons.FaUnlock />,
     cName: "nav-text",
   },
+
   {
-    title: "Ride",
-    path: "/ride",
-    icon: <FaIcons.FaBicycle />,
-    cName: "nav-text",
-  },
-  {
-    title: "Dock",
-    path: "/dock",
-    icon: <FaIcons.FaDocker />,
-    cName: "nav-text",
-  },
-  {
-    title: "Trips",
-    path: "/trips",
-    icon: <FaIcons.FaRoad />,
-    cName: "nav-text",
-  },
-  {
-    title: "Support",
-    path: "/support",
-    icon: <IoIcons.IoMdHelpCircle />,
+    title: "Settings",
+    path: "/settings",
+    icon: <IoIcons.IoMdSettings />,
     cName: "nav-text",
   },
 ];

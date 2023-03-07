@@ -1,9 +1,12 @@
 import React from "react";
+import MainNavigation from "../components/layout/MainNavigation";
+import QrCode from "../components/QrCode";
 
 export const Rides = () => {
 return (
 	<div className="services">
-	<h1>Kijani Rides</h1>
+	<MainNavigation />
+	<QrCode />
 	</div>
 );
 };

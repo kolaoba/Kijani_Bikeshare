@@ -3,12 +3,14 @@
 import Navbar from "../components/ForDash/Navbar";
 import React, { useContext } from "react";
 import UserContext from "../context/UserContext";
+import MainNavigation from "../components/layout/MainNavigation";
 
 function Profile() {
   const { user } = useContext(UserContext);
 
   return (
     <>
+      <MainNavigation />
       <Navbar>
         <section>
           <div>
