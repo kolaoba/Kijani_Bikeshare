@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request, session, abort
 from models import storage
 from flask_migrate import Migrate
 from flask_cors import CORS
@@ -16,6 +16,17 @@ def create_app():
 
     migrate.init_app(app, storage.engine, include_schemas=True)
 
+    # Define a function to check if the user is authenticated
+    def check_authentication():
+        if "user_id" not in session:
+            abort(401)
+    
+    # Define a function to handle the before_request event
+    @app.before_request
+    def before_request():
+        if request.path.startswith('/api/v1'):
+            check_authentication()
+    
     # blueprint for auth routes in our app
     from .auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint)

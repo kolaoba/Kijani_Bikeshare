@@ -2,7 +2,7 @@
 from models.station import Station
 from models import storage
 from api.v1.views import app_views
-from flask import abort, jsonify, make_response, request
+from flask import abort, jsonify
 from flasgger.utils import swag_from
 
 
@@ -18,6 +18,13 @@ def get_station(name):
         name (str): The name of the station
     """
     station = storage.get_obj_by_attr(Station, 'name', name)
-    print(storage.get_long_lat_from_obj(station))
+    
+    if not station:
+        abort(404)
+    
+    bike_count = storage.get_available_bike_count(station.id)
 
-    return jsonify(station.to_dict())
+    return jsonify({
+        "station_details":station.to_dict(),
+        "available_bikes":bike_count
+        })

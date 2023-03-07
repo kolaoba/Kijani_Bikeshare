@@ -123,6 +123,11 @@ class DBStorage:
         
         longitude, latitude = self.__session.query(func.ST_X(obj.location), func.ST_Y(obj.location)).first()
         return longitude, latitude
+    
+    def get_available_bike_count(self, station_id):
+        """Returns the number of available bikes at a station"""
+        return self.__session.query(func.count(BikeStation.bike_id)).filter_by(
+            station_id=station_id, status=1).scalar()
         
     def count(self, cls=None):
         """

@@ -12,10 +12,6 @@ def status():
 def number_objects():
     """ Retrieves the number of each objects by type """
     
-    user_id = session.get("user_id")
-    if not user_id:
-        return jsonify({"error": "Unauthorized"}), 401
-    
     num_objs = {}
     for key, value in classes.items():
         num_objs[key] = storage.count(value)
