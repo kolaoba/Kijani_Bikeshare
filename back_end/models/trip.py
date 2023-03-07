@@ -5,6 +5,7 @@ from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, ForeignKey, DateTime, Integer
 from sqlalchemy.ext.hybrid import hybrid_property
 from datetime import datetime
+from sqlalchemy.event import listens_for
 
 
 class Trip(BaseModel, Base):
@@ -28,3 +29,8 @@ class Trip(BaseModel, Base):
         if self.end_time and self.end_time > self.start_time:
             return (self.end_time - self.start_time).total_seconds()
         return None
+    
+@listens_for(Trip.end_time, 'set')
+def calculate_duration(target, value, oldvalue, initiator):
+    if value is not None:
+        target.duration = (value - target.start_time).total_seconds()
