@@ -39,7 +39,7 @@ const Payment = () => {
             type="submit"
             title="Pay & Ride"
           >
-            Pay & Ride
+            confirm payment
           </button>
         </Link>
         <Link to="/dashboard">

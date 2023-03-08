@@ -1,17 +1,17 @@
 import React from "react";
 import Navbar from "../components/ForDash/Navbar";
 import MainNavigation from "../components/layout/MainNavigation";
-import UserSettings from "../components/Settings";
+import { SelectBike } from "../components/SelectBike";
 
-const Settings = () => {
+const ReserveBike = () => {
   return (
-    <>
+    <div>
       <MainNavigation />
       <Navbar>
-        <UserSettings />
+        <SelectBike />
       </Navbar>
-    </>
+    </div>
   );
 };
 
-export default Settings;
+export default ReserveBike;

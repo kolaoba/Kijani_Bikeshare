@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import { QRCodeCanvas } from "qrcode.react";
 import { Link } from "react-router-dom";
+import classes from "./QrCode.module.css";
 
 const QrCode = () => {
   const [url, setUrl] = useState("");
@@ -34,7 +35,7 @@ const QrCode = () => {
   );
 
   return (
-    <div className="qrcode__container">
+    <div className={classes.qrcode__container}>
       <div ref={qrRef}>{qrcode}</div>
       <div className="input__group">
         <form onSubmit={scanQRCode}>
@@ -45,7 +46,7 @@ const QrCode = () => {
             onChange={qrCodeEncoder}
             placeholder="054"
           />
-          <Link to="/payment">
+          <Link to="/rides">
             <button type="submit" disabled={!url}>
               Unlock Bike
             </button>
