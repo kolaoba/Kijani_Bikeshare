@@ -111,11 +111,11 @@ class DBStorage:
 
         if cls not in classes.values():
             return None
-        
+
         query = self.__session.query(cls)
         for attr_name, attr_value in kwargs.items():
             query = query.filter(getattr(cls, attr_name) == attr_value)
-        
+
         obj = query.first()
         if obj:
             return obj
@@ -146,18 +146,18 @@ class DBStorage:
         """Returns the active trip of a user"""
         return self.__session.query(Trip).filter_by(
             user_id=user_id, status=0).first()
-        
+
     def get_bike_rate_by_id(self, bike_id):
         """Returns the rate of a bike"""
-        
+
         # get bike type id
         bike_type_id = self.get_obj_by_attr(Bike, id=bike_id).type_id
-        
+
         #  get bike type rate
         rate = self.get_obj_by_attr(BikeType, id=bike_type_id).rate
-        
+
         return rate
-    
+
     def count(self, cls=None):
         """
         count the number of objects in storage
@@ -172,4 +172,3 @@ class DBStorage:
             count = len(models.storage.all(cls).values())
 
         return count
-

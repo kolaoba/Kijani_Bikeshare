@@ -24,7 +24,7 @@ class BikeStation(BaseModel, Base):
             'stations.id',
             name='fk_bike_station_station_id'),
         primary_key=True)
-    status = Column(Integer, nullable=False)  # 0 = inactive, 1 = active
+    status = Column(Integer, nullable=False)  # 0 = unavailable, 1 = available
 
     def __init__(self, *args, **kwargs):
         """initializes bike_station"""
