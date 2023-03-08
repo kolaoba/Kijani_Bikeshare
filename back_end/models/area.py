@@ -11,6 +11,11 @@ class Area(BaseModel, Base):
     city_id = Column(String(60), ForeignKey('cities.id'), nullable=False)
     name = Column(String(128), nullable=False)
 
+    stations = relationship(
+        "Station",
+        backref="area",
+        cascade="all, delete, delete-orphan")
+
     def __init__(self, *args, **kwargs):
         """initializes area"""
         super().__init__(*args, **kwargs)

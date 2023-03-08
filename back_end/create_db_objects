@@ -6,3 +6,6 @@ create User email="test1@test.com" first_name="test1" last_name="testo1" passwor
 create User email="test2@test.com" first_name="test2" last_name="testo2" password="12345" city_name="Lagos"
 create Bike type="Mountain_Bike" status="Available" location="POINT(10_20)"
 create Bike type="Electric_Bike" status="Unavailable" location="POINT(10_30)"
+create Area name="Unilag" city_name="Lagos"
+create Station name="Unilag-Gate-001" area_name="Unilag" description="Located_at_unilag_gate" capacity=30 location="POINT(6.5175117752477165_3.3857290504513724)"
+create Station name="Unilag-Auditorium-002" area_name="Unilag" description="Located_at_unilag_Main_Auditorium" capacity=30 location="POINT(6.5193117614417995_3.39929780375822)"

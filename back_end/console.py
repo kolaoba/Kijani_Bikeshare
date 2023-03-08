@@ -58,11 +58,18 @@ class KijaniCommand(cmd.Cmd):
             return False
         if args[0] in classes:
             new_dict = self._key_value_parser(args[1:])
-            print(new_dict)
             if args[0] == 'User':
                 city = storage.get_obj_by_attr(classes.get('City'), 'name',new_dict.get('city_name'))
                 new_dict["city_id"] = city.id
                 new_dict.pop("city_name")
+            if args[0] == 'Area':
+                city = storage.get_obj_by_attr(classes.get('City'), 'name',new_dict.get('city_name'))
+                new_dict["city_id"] = city.id
+                new_dict.pop("city_name")
+            if args[0] == "Station":
+                area = storage.get_obj_by_attr(classes.get('Area'), 'name',new_dict.get('area_name'))
+                new_dict["area_id"] = area.id
+                new_dict.pop("area_name")
             print(new_dict)
             instance = classes[args[0]](**new_dict)
         else:
