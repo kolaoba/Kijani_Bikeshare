@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import axios from "../api/axios";
 import classes from "./RideLocation.module.css";
+import { Link } from "react-router-dom";
 
 function DropdownList() {
   const [startLocation, setStartLocation] = useState("");
@@ -63,9 +64,9 @@ function DropdownList() {
         </select>
       </div>
       <div>
-        <button onClick={handleSubmit} className={classes.btn}>
-          Start Ride
-        </button>
+        <Link to="/reserve">
+          <button>Start Ride</button>
+        </Link>
       </div>
     </div>
   );

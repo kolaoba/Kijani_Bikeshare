@@ -202,7 +202,7 @@ function SignupForm() {
             <label htmlFor="password">
               Password
               <input
-                type="text"
+                type="password"
                 id="password"
                 autoComplete="off"
                 placeholder="Password"
@@ -214,7 +214,7 @@ function SignupForm() {
             <label htmlFor="matchPassword">
               Confirm Password
               <input
-                type="text"
+                type="password"
                 id="matchPassword"
                 autoComplete="off"
                 placeholder="Confirm Password"

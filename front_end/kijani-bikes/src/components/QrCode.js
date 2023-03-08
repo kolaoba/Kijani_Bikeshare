@@ -46,7 +46,7 @@ const QrCode = () => {
             onChange={qrCodeEncoder}
             placeholder="054"
           />
-          <Link to="/payment">
+          <Link to="/rides">
             <button type="submit" disabled={!url}>
               Unlock Bike
             </button>

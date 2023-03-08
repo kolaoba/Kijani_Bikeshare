@@ -32,7 +32,7 @@ function Workings() {
         title="Unlock"
         btn="Unlock"
         img={unlock}
-        nav="/rides"
+        nav="/unlock"
       />
       <PartHow
         description="Enjoy A Green and hassle free Ride To your destination of choice"
