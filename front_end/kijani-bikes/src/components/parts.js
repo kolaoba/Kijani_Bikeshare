@@ -7,7 +7,7 @@ function HowPart(props) {
       <div>
         <h2>{props.title}</h2>
         <p>{props.description}</p>
-        <button>
+        <button className={classes.btn}>
           <Link to={props.nav}>{props.btn}</Link>{" "}
         </button>
       </div>
@@ -28,7 +28,7 @@ export function PartHow(props) {
         <h2>{props.title}</h2>
         <p>{props.description}</p>
 
-        <button>
+        <button className={classes.btn}>
           <Link to={props.nav}>{props.btn}</Link>{" "}
         </button>
       </div>
