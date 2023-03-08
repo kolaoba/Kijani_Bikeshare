@@ -11,5 +11,5 @@ def profile():
     if not user_id:
         return jsonify({"error": "Unauthorized"}), 401
 
-    user = storage.get_obj_by_attr(User, 'id', user_id)
+    user = storage.get_obj_by_attr(User, id=user_id)
     return jsonify(user.to_dict())

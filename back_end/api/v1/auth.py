@@ -16,7 +16,7 @@ def login_post():
         data = request.get_json()
 
     user = storage.get_obj_by_attr(
-        classes.get('User'), 'email', data.get('email'))
+        classes.get('User'), email=data.get('email'))
 
     # check if user actually exists
     # take the user supplied password, hash it, and compare it to the hashed
@@ -43,11 +43,10 @@ def handle_signup():
 
     # if this returns a user, then the email already exists in database
     user = storage.get_obj_by_attr(
-        classes.get('User'), 'email', data.get('email'))
+        classes.get('User'), email=data.get('email'))
     city = storage.get_obj_by_attr(
         classes.get('City'),
-        'name',
-        data.get('city_name'))
+        name=data.get('city_name'))
 
     if user:
         return jsonify({"error": "User already exists"}), 409

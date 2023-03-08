@@ -39,9 +39,9 @@ def start_trip():
 
     # get the station objects
     start_station = storage.get_obj_by_attr(
-        Station, 'name', data.get('start_docking_station'))
+        Station, name=data.get('start_docking_station'))
     end_station = storage.get_obj_by_attr(
-        Station, 'name', data.get('destination_docking_station'))
+        Station, name=data.get('destination_docking_station'))
 
     # check if the start station exists
     if not start_station:
@@ -103,16 +103,28 @@ def end_trip():
     # save changes to trip object
     current_trip.save()
 
-    # check for record of 
-    
-    # create bike station object for the trip
-    new_bike_station = BikeStation(
+    # check for record of bike_station
+    bike_station = storage.get_obj_by_attr(
+        BikeStation,
         bike_id=current_trip.bike_id,
-        station_id=current_trip.destination_docking_station,
-        status=1)
+        station_id=current_trip.destination_docking_station)
 
-    # save bike station object
-    new_bike_station.save()
+    if bike_station:
+        # set bikeStation status to available
+        bike_station.status = 1
+
+        # commit bikeStation status change
+        bike_station.save()
+
+    else:
+        # create bike station object for the trip
+        new_bike_station = BikeStation(
+            bike_id=current_trip.bike_id,
+            station_id=current_trip.destination_docking_station,
+            status=1)
+
+        # save bike station object
+        new_bike_station.save()
 
     return jsonify({
         "trip_details": current_trip.to_dict(),

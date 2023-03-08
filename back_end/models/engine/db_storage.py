@@ -105,15 +105,18 @@ class DBStorage:
 
         return None
 
-    def get_obj_by_attr(self, cls, attr_name, attr_value):
+    def get_obj_by_attr(self, cls, **kwargs):
         """Returns Object based on it's attribute by querying directly
         against the DB and returns None if not found"""
 
         if cls not in classes.values():
             return None
-
-        obj = self.__session.query(cls).filter_by(
-            **{attr_name: attr_value}).first()
+        
+        query = self.__session.query(cls)
+        for attr_name, attr_value in kwargs.items():
+            query = query.filter(getattr(cls, attr_name) == attr_value)
+        
+        obj = query.first()
         if obj:
             return obj
         return None
