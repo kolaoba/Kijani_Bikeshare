@@ -51,16 +51,16 @@ function DropdownList() {
         <h3>Choose Start Location</h3>
         <select value={startLocation} onChange={handleStart}>
           <option value="">Select Start Location</option>
-          <option value="dock1">Unilag Gate 1</option>
-          <option value="option2">Unilag Main Auditorium</option>
+          <option value="dock1">Unilag-Gate-001</option>
+          <option value="option2">Unilag-Auditorium-002</option>
         </select>
       </div>
       <div>
         <h3>Choose End Location</h3>
         <select value={endLocation} onChange={handleEnd}>
           <option value="">Select End Location</option>
-          <option value="dock1">Unilag Gate 1</option>
-          <option value="option2">Unilag Main Auditorium</option>
+          <option value="dock1">Unilag-Gate-001</option>
+          <option value="option2">Unilag-Auditorium-002</option>
         </select>
       </div>
       <div>

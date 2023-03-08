@@ -2,7 +2,8 @@
 
 import Navbar from "../components/ForDash/Navbar";
 import MainNavigation from "../components/layout/MainNavigation";
-import MapContainer from "../components/maps/BikeShareMap";
+// import { MapContainer } from "../components/maps/BikeShareMap";
+import NewMap from "../components/maps/NewMap";
 import RideLocation from "../components/RideLocation";
 
 function Dashboard() {
@@ -11,9 +12,10 @@ function Dashboard() {
       <MainNavigation />
       <Navbar>
         <RideLocation />
-        <div style={{ height: "700px", width: "700px" }}>
+        <NewMap />
+        {/* <div style={{ height: "700px", width: "700px" }}>
           <MapContainer />
-        </div>
+        </div> */}
       </Navbar>
     </>
   );
