@@ -3,9 +3,10 @@ from models import storage
 from flask_migrate import Migrate
 from flask_cors import CORS
 from .config import ApplicationConfig
+from flask_session import Session
 
 migrate = Migrate()
-
+sess = Session()
 
 def create_app():
 
@@ -16,6 +17,8 @@ def create_app():
 
     migrate.init_app(app, storage.engine, include_schemas=True)
 
+    sess.init_app(app)
+    
     # Define a function to check if the user is authenticated
     def check_authentication():
         if "user_id" not in session:

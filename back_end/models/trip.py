@@ -24,6 +24,7 @@ class Trip(BaseModel, Base):
     # 0 = active, 1 = completed, 2 = cancelled
     status = Column(Integer, nullable=False)
     duration = Column(Integer, nullable=True)
+    # price = Column(Integer, nullable=True)
 
     def __init__(self, *args, **kwargs):
         """initializes Trip"""
@@ -38,5 +39,11 @@ class Trip(BaseModel, Base):
 
 @listens_for(Trip.end_time, 'set')
 def calculate_duration(target, value, oldvalue, initiator):
+    # check for end time value after update
     if value is not None:
+        # calculate duration and add to record
         target.duration = (value - target.start_time).total_seconds()
+    
+
+
+# def calculate_price(target, )
