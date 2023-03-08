@@ -4,10 +4,11 @@ import roadBike from "../assets/roadbike.png";
 import electricBike from "../assets/citybike.png";
 import { Link } from "react-router-dom";
 import Footer from "./layout/Footer";
+import classes from "./SelectBike.module.css";
 
 export const SelectBike = () => {
   return (
-    <div className="home">
+    <div className={classes.container}>
       <h1>Select Bike</h1>
       <div className="bike-selection">
         <div className="bike-selection__item">

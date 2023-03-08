@@ -27,6 +27,7 @@ export function PartHow(props) {
       <div>
         <h2>{props.title}</h2>
         <p>{props.description}</p>
+
         <button>
           <Link to={props.nav}>{props.btn}</Link>{" "}
         </button>

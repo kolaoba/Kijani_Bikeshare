@@ -1,11 +1,25 @@
-import React from 'react'
+// User profile component for the app
 
-function Profile() {
+import React from "react";
+import UserContext from "../context/UserContext";
+import { useContext } from "react";
+import classes from "./Profile.module.css";
+
+const UserProfile = () => {
+  const { user } = useContext(UserContext);
   return (
-    <div>
-      <h1>Select Bike</h1>
-    </div>
-  )
-}
+    <section className={classes.profilepage}>
+      <div>
+        <h1>Hello {user.first_name}</h1>
+        <p>Here is your profile page</p>
+        <p>
+          Name: {user.last_name} {user.first_name}
+        </p>
+        <p>Email: {user.email}</p>
+        <p>Phone: {user.phone_number}</p>
+      </div>
+    </section>
+  );
+};
 
-export default Profile
+export default UserProfile;
