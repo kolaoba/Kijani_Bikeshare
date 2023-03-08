@@ -2,10 +2,11 @@
   margin: 20px;
   display: flex;
   flex-direction: row;
+  /* align-items: center; */
   justify-content: space-around;
   color: white;
   align-items: center;
-
+  padding-top: 30px;
   height: 250px;
 }
 
@@ -17,6 +18,11 @@
   width: 25%;
   text-align: center;
 }
+
+/* .parts div button {
+  align-self: center;
+  margin: 0, auto;
+} */
 
 .parts img {
   max-width: 100%;

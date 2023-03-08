@@ -41,4 +41,6 @@ def create_app():
     from api.v1.views import app_views
     app.register_blueprint(app_views)
 
-    return app
+
+if __name__ == '__main__':
+    app.run(port=5000, debug=True)
