@@ -55,7 +55,7 @@ def start_trip():
     bike_station = storage.get_available_bike_from_station(start_station.id)
 
     if not bike_station:
-        return jsonify({"message": "No bikes available at this station"}), 400
+        abort(400, description="No bikes available at this station")
 
     # set bikeStation status to unavailable
     bike_station.status = 0
@@ -92,7 +92,7 @@ def end_trip():
     current_trip = storage.get_active_trip(user_id)
 
     if not current_trip:
-        abort(404, description="User has no active trip")
+        abort(400, description="User has no active trip")
 
     # update the trip status to 1
     current_trip.status = 1

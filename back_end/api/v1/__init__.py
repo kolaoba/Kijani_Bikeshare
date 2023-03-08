@@ -5,6 +5,7 @@ from flask_cors import CORS
 from .config import ApplicationConfig
 from flask_session import Session
 
+
 migrate = Migrate()
 sess = Session()
 
@@ -12,6 +13,7 @@ def create_app():
 
     app = Flask(__name__)
     app.config.from_object(ApplicationConfig)
+
 
     CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 
