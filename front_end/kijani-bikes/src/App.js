@@ -7,7 +7,7 @@ import Dashboard from "./pages/Dashboard";
 import LandingPage from "./pages/LandingPage";
 import Login from "./pages/Login";
 // import { SelectBike } from "./components/SelectBike";
-import { Rides } from "./pages/Rides";
+import Rides from "./pages/Rides";
 import Settings from "./pages/Settings";
 import Signup from "./pages/Signup";
 import Payment from "./pages/Payment";
@@ -19,6 +19,7 @@ import RequireAuth from "./components/RequireAuth";
 import Profile from "./pages/Profile";
 // import Navbar from "./components/ForDash/Navbar";
 import ReserveBike from "./pages/ReserveBike";
+import UnlockBike from "./pages/Unlock";
 
 function App() {
   const [user, setUser] = useState("");
@@ -44,6 +45,7 @@ function App() {
             />
             <Route path="reserve" element={<ReserveBike />} />
             <Route path="rides" element={<Rides />} />
+            <Route path="unlock" element={<UnlockBike />} />
             <Route path="payment" element={<Payment />} />
             <Route path="trips" element={<Trips />} />
             <Route path="profile" element={<Profile />} />
