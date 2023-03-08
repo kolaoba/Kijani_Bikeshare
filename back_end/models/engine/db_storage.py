@@ -11,6 +11,7 @@ from models.bike_station import BikeStation
 from models.city import City
 # from models.payment import Payment
 # from models.rack import Rack
+from models.bike_type import BikeType
 from models.station import Station
 from models.user import User
 from models.trip import Trip
@@ -25,6 +26,7 @@ load_dotenv()
 classes = {"Area": Area,
            "Bike": Bike,
            "BikeStation": BikeStation,
+           "BikeType": BikeType,
            "City": City,
            #    "Payment": Payment,
            #    "Rack": Rack,

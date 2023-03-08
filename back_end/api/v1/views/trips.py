@@ -103,6 +103,8 @@ def end_trip():
     # save changes to trip object
     current_trip.save()
 
+    # check for record of 
+    
     # create bike station object for the trip
     new_bike_station = BikeStation(
         bike_id=current_trip.bike_id,
