@@ -9,10 +9,10 @@ import classes from "./SelectBike.module.css";
 export const SelectBike = () => {
   return (
     <div className={classes.container}>
-      <h1>Select Bike</h1>
+      <h1>Available Bikes</h1>
       <div className="bike-selection">
         <div className="bike-selection__item">
-          <Link to="/rides">
+          <Link to="/unlock">
             <img
               src={mountainBike}
               alt="Mountain Bike"
@@ -26,7 +26,7 @@ export const SelectBike = () => {
           </Link>
         </div>
         <div className="bike-selection__item">
-          <Link to="/rides">
+          <Link to="/unlock">
             <img
               src={roadBike}
               alt="Road Bike"
@@ -40,7 +40,7 @@ export const SelectBike = () => {
           </Link>
         </div>
         <div className="bike-selection__item">
-          <Link to="/rides">
+          <Link to="/unlock">
             <img
               src={electricBike}
               alt="City Bike"
