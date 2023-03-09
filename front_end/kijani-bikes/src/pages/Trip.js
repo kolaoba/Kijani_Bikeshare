@@ -1,19 +1,19 @@
 import React from "react";
+import { Trips } from "../components/Trips";
 import Navbar from "../components/ForDash/Navbar";
 import MainNavigation from "../components/layout/MainNavigation";
-import Ride from "../components/Ride";
 import Footer from "../components/layout/Footer";
 
-const Rides = () => {
+const Trip = () => {
   return (
     <>
       <MainNavigation />
       <Navbar>
-        <Ride />
+        <Trips />
         <Footer />
       </Navbar>
     </>
   );
 };
 
-export default Rides;
+export default Trip;
