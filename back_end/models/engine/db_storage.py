@@ -11,6 +11,7 @@ from models.bike_station import BikeStation
 from models.city import City
 # from models.payment import Payment
 # from models.rack import Rack
+from models.bike_type import BikeType
 from models.station import Station
 from models.user import User
 from models.trip import Trip
@@ -25,6 +26,7 @@ load_dotenv()
 classes = {"Area": Area,
            "Bike": Bike,
            "BikeStation": BikeStation,
+           "BikeType": BikeType,
            "City": City,
            #    "Payment": Payment,
            #    "Rack": Rack,
@@ -35,7 +37,7 @@ classes = {"Area": Area,
 
 
 class DBStorage:
-    """interaacts with the MySQL database"""
+    """interacts with the Postgres database"""
     engine = None
     __session = None
 
@@ -103,15 +105,18 @@ class DBStorage:
 
         return None
 
-    def get_obj_by_attr(self, cls, attr_name, attr_value):
+    def get_obj_by_attr(self, cls, **kwargs):
         """Returns Object based on it's attribute by querying directly
         against the DB and returns None if not found"""
 
         if cls not in classes.values():
             return None
 
-        obj = self.__session.query(cls).filter_by(
-            **{attr_name: attr_value}).first()
+        query = self.__session.query(cls)
+        for attr_name, attr_value in kwargs.items():
+            query = query.filter(getattr(cls, attr_name) == attr_value)
+
+        obj = query.first()
         if obj:
             return obj
         return None
@@ -141,6 +146,17 @@ class DBStorage:
         """Returns the active trip of a user"""
         return self.__session.query(Trip).filter_by(
             user_id=user_id, status=0).first()
+
+    def get_bike_rate_by_id(self, bike_id):
+        """Returns the rate of a bike"""
+
+        # get bike type id
+        bike_type_id = self.get_obj_by_attr(Bike, id=bike_id).type_id
+
+        #  get bike type rate
+        rate = self.get_obj_by_attr(BikeType, id=bike_type_id).rate
+
+        return rate
 
     def count(self, cls=None):
         """

@@ -17,7 +17,7 @@ def get_station(name):
     Args:
         name (str): The name of the station
     """
-    station = storage.get_obj_by_attr(Station, 'name', name)
+    station = storage.get_obj_by_attr(Station, name=name)
     if not station:
         abort(404)
 

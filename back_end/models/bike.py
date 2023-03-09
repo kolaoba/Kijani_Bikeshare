@@ -3,7 +3,7 @@
 
 from models.base_model import BaseModel, Base, schema
 
-from sqlalchemy import Column, String
+from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.orm import relationship
 from geoalchemy2 import Geometry
 
@@ -17,7 +17,7 @@ class Bike(BaseModel, Base):
     status (str): The status of the bike
     """
     __tablename__ = 'bikes'
-    type = Column(String(128), nullable=False)
+    type_id = Column(String(60), ForeignKey('bike_types.id'), nullable=False)
     status = Column(String(128), nullable=False)
     location = Column(Geometry('POINT', srid=4326), nullable=False)
 
