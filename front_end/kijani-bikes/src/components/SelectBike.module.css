@@ -7,4 +7,10 @@
   width: 100%;
   max-width: 600px;
   padding: 0 20px;
+  margin: 55px auto;
+}
+
+h1,
+h3 {
+  color: white;
 }

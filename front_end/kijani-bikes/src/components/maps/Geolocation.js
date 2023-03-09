@@ -1,12 +1,12 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
 
 const mapStyles = {
   map: {
-    position: 'absolute',
-    width: '100%',
-    height: '100%'
-  }
+    position: "absolute",
+    width: "100%",
+    height: "100%",
+  },
 };
 
 export class CurrentLocation extends React.Component {
@@ -18,8 +18,8 @@ export class CurrentLocation extends React.Component {
     this.state = {
       currentLocation: {
         lat: lat,
-        lng: lng
-      }
+        lng: lng,
+      },
     };
   }
 
@@ -47,13 +47,13 @@ export class CurrentLocation extends React.Component {
   componentDidMount() {
     if (this.props.centerAroundCurrentLocation) {
       if (navigator && navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(pos => {
+        navigator.geolocation.getCurrentPosition((pos) => {
           const coords = pos.coords;
           this.setState({
             currentLocation: {
               lat: coords.latitude,
-              lng: coords.longitude
-            }
+              lng: coords.longitude,
+            },
           });
         });
       }
@@ -80,7 +80,7 @@ export class CurrentLocation extends React.Component {
         {},
         {
           center: center,
-          zoom: zoom
+          zoom: zoom,
         }
       );
 
@@ -94,13 +94,13 @@ export class CurrentLocation extends React.Component {
 
     if (!children) return;
 
-    return React.Children.map(children, c => {
+    return React.Children.map(children, (c) => {
       if (!c) return;
 
       return React.cloneElement(c, {
         map: this.map,
         google: this.props.google,
-        mapCenter: this.state.currentLocation
+        mapCenter: this.state.currentLocation,
       });
     });
   }
@@ -123,12 +123,10 @@ CurrentLocation.defaultProps = {
   zoom: 14,
   initialCenter: {
     lat: -1.2884,
-    lng: 36.8233
+    lng: 36.8233,
   },
   centerAroundCurrentLocation: false,
-  visible: true
+  visible: true,
 };
 
 export default CurrentLocation;
-
-

@@ -4,15 +4,19 @@ import React, { useState } from "react";
 import axios from "../api/axios";
 import classes from "./RideLocation.module.css";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import StartContext from "../context/StartContext";
 
 function DropdownList() {
   const [startLocation, setStartLocation] = useState("");
   const [endLocation, setEndLocation] = useState("");
-  const [ride, setRide] = useState("");
+  const { setStart } = useContext(StartContext);
+  // const [ride, setRide] = useState("");
 
   //   Handle start location change
   function handleStart(e) {
     setStartLocation(e.target.value);
+    setStart(e.target.value);
   }
 
   //   Handle end location change
@@ -21,28 +25,38 @@ function DropdownList() {
   }
 
   //   Handle submit button click
-  function handleSubmit(e) {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(startLocation, endLocation);
-    setRide({ startLocation, endLocation });
 
     const formData = {
       startLocation: startLocation,
       endLocation: endLocation,
     };
 
+    // make api call to get start location details
     try {
-      const response = axios.post("/ride", JSON.stringify(formData), {
-        headers: {
-          "Content-Type": "application/json",
-          withCredentials: true,
-        },
-      });
+      const response = await axios.post(
+        `/station/${startLocation}`,
+        JSON.stringify(formData),
+        {
+          headers: {
+            "Content-Type": "application/json",
+            withCredentials: true,
+          },
+        }
+      );
       console.log(response);
     } catch (err) {
-      console.log(err);
+      if (!err.response) {
+        console.log("Network Error");
+        return;
+      } else if (err.response.status === 401) {
+        console.log("Invalid credentials");
+        return;
+      }
     }
-  }
+  };
 
   return (
     <div className={classes.rideCont}>
@@ -51,21 +65,27 @@ function DropdownList() {
         <h3>Choose Start Location</h3>
         <select value={startLocation} onChange={handleStart}>
           <option value="">Select Start Location</option>
-          <option value="dock1">Unilag Gate 1</option>
-          <option value="option2">Unilag Main Auditorium</option>
+          <option value="Unilag-Gate-001">Unilag-Gate-001</option>
+          <option value="Unilag-Auditorium-002">Unilag-Auditorium-002</option>
         </select>
       </div>
       <div>
         <h3>Choose End Location</h3>
         <select value={endLocation} onChange={handleEnd}>
           <option value="">Select End Location</option>
-          <option value="dock1">Unilag Gate 1</option>
-          <option value="option2">Unilag Main Auditorium</option>
+          <option value="Unilag-Gate-001">Unilag-Gate-001</option>
+          <option value="Unilag-Auditorium-002">Unilag-Auditorium-002</option>
         </select>
       </div>
       <div>
         <Link to="/reserve">
-          <button>Start Ride</button>
+          <button
+            onClick={handleSubmit}
+            disabled={!startLocation}
+            className={classes.btn}
+          >
+            Start Ride
+          </button>
         </Link>
       </div>
     </div>
