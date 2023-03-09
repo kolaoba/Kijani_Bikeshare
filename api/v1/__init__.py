@@ -15,7 +15,7 @@ def create_app():
     app.config.from_object(ApplicationConfig)
 
 
-    CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
+    CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}}, methods=['GET', 'POST'])
 
     migrate.init_app(app, storage.engine, include_schemas=True)
 
