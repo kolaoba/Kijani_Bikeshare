@@ -10,7 +10,9 @@ const Rides = () => {
       <MainNavigation />
       <Navbar>
         <Ride />
-        <Footer />
+        <div style={{ position: "absolute", bottom: 0, width: "100%" }}>
+          <Footer />
+        </div>
       </Navbar>
     </>
   );
