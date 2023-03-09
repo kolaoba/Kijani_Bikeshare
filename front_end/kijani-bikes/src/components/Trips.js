@@ -9,7 +9,6 @@ export const Trips = () => {
         Dock your bike to end ride and thanks again for reducing your carbon
         footprint today with Kijani!
       </h2>
-      <Footer />
     </div>
   );
 };

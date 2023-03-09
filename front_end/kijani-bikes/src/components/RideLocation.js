@@ -15,6 +15,7 @@ function DropdownList() {
 
   //   Handle start location change
   function handleStart(e) {
+    e.preventDefault();
     setStartLocation(e.target.value);
     setStart(e.target.value);
   }
@@ -36,9 +37,10 @@ function DropdownList() {
 
     // make api call to get start location details
     try {
-      const response = await axios.post(
-        `/station/${startLocation}`,
-        JSON.stringify(formData),
+      const response = await axios.get(
+        "/profile",
+        // `api/v1/station/${startLocation}`,
+        // JSON.stringify(formData),
         {
           headers: {
             "Content-Type": "application/json",
